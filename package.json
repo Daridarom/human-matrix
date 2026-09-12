@@ -1,18 +1,14 @@
 {
-  "name": "human-matrix-dev",
-  "version": "1.0.0",
+  "name": "human-matrix",
+  "version": "0.3.0",
   "description": "Экспериментальный веб-интерфейс для исследования Human Design, BG5 и дополнительных календарно-символических систем.",
   "main": "index.js",
   "dependencies": {
-    "astronomia": "^4.2.0",
-    "city-timezones": "^1.3.4",
-    "esbuild": "^0.28.2",
-    "free-human-design": "^1.0.1",
-    "hd-chart-engine": "^0.1.1",
-    "luxon": "^3.7.2"
+    "hd-chart-engine": "^0.1.1"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "esbuild src/hd-core.js --bundle --platform=browser --format=iife --outfile=dist/hd-core.js --minify",
+    "test": "node tests/engine-smoke.mjs && node tests/core-smoke.mjs && node --check src/app.js"
   },
   "repository": {
     "type": "git",
@@ -20,9 +16,13 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/Daridarom/human-matrix/issues"
   },
-  "homepage": "https://github.com/Daridarom/human-matrix#readme"
+  "homepage": "https://github.com/Daridarom/human-matrix#readme",
+  "private": true,
+  "devDependencies": {
+    "esbuild": "^0.28.2"
+  }
 }

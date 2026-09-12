@@ -1,25 +1,21 @@
-# Human Matrix calculation engine
+# Human Matrix — calculation engine
 
-## Selected astronomy layer
-`hd-chart-engine` (MIT path) is used as the first local astronomical Human Design calculation layer.
-It runs in the browser and returns Personality/Design activations for all supported bodies.
+## v0.3 pipeline
 
-## Why the layers are separated
-Human Matrix will not make one opaque package responsible for everything.
-1. Birth moment + timezone + coordinates.
-2. Astronomical activations (gates/lines/etc.).
-3. BodyGraph derivation (channels, centers, Type, Authority, Profile).
-4. Interpretation text.
-5. Relationship/team analysis.
-6. User observations.
+1. Birth date + local birth time + IANA timezone.
+2. `hd-chart-engine` computes Personality and Design planetary activations locally in the browser.
+3. Human Matrix derives activated gates, 36 canonical channels, defined/open centers, Type, Strategy, Authority and Profile.
+4. The UI renders its own schematic center graph; it does not copy a proprietary BodyGraph drawing.
+5. Pair analysis is derived only from the two calculated gate sets and is kept separate from interpretation.
 
-This lets us test each layer independently and swap an engine without losing the product model.
+## Accuracy boundary
 
-## Current status
-- Browser bundle builds successfully.
-- Local smoke test is in `tests/engine-smoke.mjs`.
-- Test fixture 1989-03-26 12:00 Europe/Moscow: Personality Sun gate 17, Design Sun gate 58.
-- UI does not yet present these numbers as a finished Human Design profile.
+The MIT astronomy engine reports gate, line and color as reliable in its documented validation range. Tone/base are not treated as authoritative in the Human Matrix interface. Exact chart outputs still need regression checks against reference charts before a 1.0 release.
 
-## Next verification
-Compare a documented set of charts against at least two independent calculators before marking calculated fields as verified.
+## Privacy
+
+Profiles are stored in browser `localStorage`. Calculation is local. No birth data is sent to a Human Matrix server in v0.3.
+
+## Product rule
+
+Calculation, interpretation, hypothesis, and observation are separate data layers. A symbolic interpretation must never silently become a calculated fact.
