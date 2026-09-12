@@ -1,0 +1,24 @@
+{
+  "name": "human-matrix-dev",
+  "version": "1.0.0",
+  "description": "Экспериментальный веб-интерфейс для исследования Human Design, BG5 и дополнительных календарно-символических систем.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Daridarom/human-matrix.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Daridarom/human-matrix/issues"
+  },
+  "homepage": "https://github.com/Daridarom/human-matrix#readme",
+  "dependencies": {
+    "esbuild": "^0.28.2",
+    "free-human-design": "^1.0.1"
+  }
+}
