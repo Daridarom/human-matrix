@@ -19,10 +19,11 @@
 .matrix{display:grid;grid-template-columns:repeat(5,minmax(100px,1fr));gap:10px;overflow:auto}.slot{min-width:120px;padding:14px;border:1px solid var(--line);border-radius:16px;background:#10182a}.slot strong{display:block}.slot span{font-size:12px;color:var(--muted)}
 .stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-top:12px}.stat{padding:14px;border:1px solid var(--line);border-radius:15px;background:#0d1527}.stat strong{display:block;font-size:19px;margin-top:5px}.bodygraph{margin-top:12px;border:1px solid var(--line);border-radius:18px;background:#0b1324;padding:14px}.bodygraph svg{width:100%;max-height:430px}.gateList{display:flex;flex-wrap:wrap;gap:6px}.gate{font-size:12px;padding:5px 8px;border-radius:999px;background:#172442;border:1px solid #30466d}.channelList{display:grid;gap:7px}.channel{padding:8px 10px;border-radius:11px;background:#101c33;border:1px solid var(--line)}@media(max-width:700px){.stats{grid-template-columns:repeat(2,minmax(0,1fr))}}
 footer{margin-top:28px;color:var(--muted);font-size:13px;line-height:1.5}
+.reading{margin-top:14px;padding:20px;border:1px solid var(--line);border-radius:18px;background:#10182a;line-height:1.65}.reading h3{margin:20px 0 6px;font-size:19px}.reading p{color:#c9d4ea;margin:0}
 </style>
 </head>
 <body><main class="app">
-<div class="top"><div class="brand"><h1>Human Matrix</h1><p>Экспериментальный интерфейс: человек → пара → команда. Human Design, BG5 и культурно-календарные системы подключаются как независимые слои, а фактические наблюдения хранятся отдельно от трактовок.</p></div><div class="pill">prototype 0.3 · live HD core</div></div>
+<div class="top"><div class="brand"><h1>Human Matrix</h1><p>Экспериментальный интерфейс: человек → пара → команда. Human Design, BG5 и культурно-календарные системы подключаются как независимые слои, а фактические наблюдения хранятся отдельно от трактовок.</p></div><div class="pill">prototype 0.4 · readable personal guide</div></div>
 <div class="grid">
 <aside class="panel"><h3>Участники</h3><p class="muted">До 5 человек в одной группе. Профили сохраняются только в этом браузере.</p><div id="persons" class="persons"></div><button id="addBtn" class="btn primary" style="width:100%;margin-top:12px">+ Добавить человека</button>
 <div class="row" style="margin-top:10px;flex-wrap:wrap"><button id="exportBtn" class="btn ghost">Экспорт данных</button><button id="importBtn" class="btn ghost">Импорт</button><input id="importFile" type="file" accept="application/json" style="display:none"/></div>
