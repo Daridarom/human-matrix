@@ -1,18 +1,24 @@
-# Human Matrix — architecture
+# Human Matrix architecture
 
-## Product layers
-1. Profile data — birth date, time, place, timezone, accuracy.
-2. Calculation engines — independent modules (Human Design first).
-3. Interpretation — texts and practical hypotheses, never mixed with raw calculations.
-4. Relationships — pair and 3–5 person team analysis.
-5. Evidence — user observations for comparing theory with lived experience.
+- `src/hd-core.js`: independent deterministic calculation, validation, gate/channel/center derivation, relationship classification, transits; bundled to `dist/hd-core.js`.
+- `src/bodygraph.js`: original SVG geometry for every gate and canonical channel; colors reflect the selected activation layer.
+- `src/readings.js`: original interpretation registry, separate from calculated data.
+- `src/app.js`: local profile persistence, views, interactions, notes, import/export.
+- `src/style.css`: responsive layouts and interaction/accessibility styles.
+- `tests/`: engine checks, independently transcribed reference fixtures, mechanics and user-flow regressions.
 
-## Human Design engine contract
-Input: ISO date, local time, IANA timezone, coordinates/place identifier.
-Output: personality/design activations, gates/lines, centers, channels, type, strategy, authority, profile, definition.
+## Product contract
 
-## Verification rule
-No calculated field enters production until it matches a reference test set across edge cases: DST/history, midnight boundaries, uncertain birth times, and multiple locations.
+Calculation → interpretation → question → observation. Interpretation is not a measured personality trait. Relationship counts are not a quality score. Transit overlays do not change natal identity.
+
+## Source continuity
+
+Existing repository and GitHub Pages address are retained. localStorage key `human-matrix.profiles.v1` is unchanged; prior profile JSON remains readable. Empty profile lists remain empty after reload. No default profile resurrection after deletion.
+
+## Verification gate
+
+Every release runs build + existing checks + regressions for changed calculation rules and user flows. Reference comparisons must record actual outputs and their limits. Full browser review supplements DOM tests.
 
 ## Privacy
-Prototype stores profiles in browser localStorage only. No server storage yet.
+
+Birth data stays in the browser. Named-zone calculation requires no geocoding or external API request. Location text is descriptive; the user must choose the correct historical IANA zone. No automatic cross-device synchronization. Preserve user's files and sharing settings.

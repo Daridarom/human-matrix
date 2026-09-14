@@ -1,4 +1,5 @@
 import { calculateChart } from 'hd-chart-engine';
+import { DateTime } from 'luxon';
 
 const CENTERS=['head','ajna','throat','g','heart','sacral','solarplexus','spleen','root'];
 const CENTER_LABELS={head:'Темя',ajna:'Аджна',throat:'Горло',g:'G / Идентичность',heart:'Эго / Воля',sacral:'Сакрал',solarplexus:'Солнечное сплетение',spleen:'Селезёнка',root:'Корень'};
@@ -11,7 +12,20 @@ const STRATEGY={'Reflector':'Ждать лунный цикл','Generator':'Жд
 function reach(start,target,centers,channels){const adj={};centers.forEach(c=>adj[c]=[]);channels.forEach(ch=>{const[a,b]=ch.centers;if(adj[a]&&adj[b]){adj[a].push(b);adj[b].push(a)}});const q=[start],seen=new Set(q);while(q.length){const x=q.shift();if(x===target)return true;for(const n of adj[x]||[])if(!seen.has(n)){seen.add(n);q.push(n)}}return false}
 function derive(planets){const acts=[];for(const [body,v] of Object.entries(planets)){if(v.p)acts.push({side:'personality',body,gate:v.p.g,line:v.p.l});if(v.d)acts.push({side:'design',body,gate:v.d.g,line:v.d.l})}const gates=[...new Set(acts.map(x=>x.gate))].sort((a,b)=>a-b),set=new Set(gates);const channels=CHANNELS.filter(ch=>ch.gates.every(g=>set.has(g)));const defined=[...new Set(channels.flatMap(ch=>ch.centers))];const ds=new Set(defined);let type;if(!defined.length)type='Reflector';else{const sacral=ds.has('sacral');const motorThroat=MOTORS.some(m=>ds.has(m)&&reach(m,'throat',defined,channels));type=sacral?(motorThroat?'Manifesting Generator':'Generator'):(motorThroat?'Manifestor':'Projector')}
 let authority;if(!defined.length)authority='Lunar';else if(ds.has('solarplexus'))authority='Emotional';else if(ds.has('sacral'))authority='Sacral';else if(ds.has('spleen'))authority='Splenic';else if(ds.has('heart'))authority='Ego';else if(ds.has('g')&&ds.has('throat')&&reach('g','throat',defined,channels))authority='Self-Projected';else authority='Mental / Environmental';
-const profile=`${planets.sun.p.l}/${planets.sun.d.l}`;return{gates,channels,definedCenters:defined,openCenters:CENTERS.filter(c=>!ds.has(c)),type,authority,profile,strategy:STRATEGY[type],activations:acts}}
+const groups=[];const remaining=new Set(defined);while(remaining.size){const seed=remaining.values().next().value;const group=defined.filter(c=>reach(seed,c,defined,channels));groups.push(group);group.forEach(c=>remaining.delete(c))}
+const profile=planets.sun?.p&&planets.sun?.d?`${planets.sun.p.l}/${planets.sun.d.l}`:null;return{gates,channels,definedCenters:defined,openCenters:CENTERS.filter(c=>!ds.has(c)),completelyOpenCenters:CENTERS.filter(c=>!gates.some(g=>GATE_CENTER[g]===c)),definitionGroups:groups,type,authority,profile,strategy:STRATEGY[type],activations:acts}}
 function compare(a,b){const A=new Set(a.gates),B=new Set(b.gates);const electromagnetic=[],companionship=[],compromise=[],dominance=[];for(const ch of CHANNELS){const[x,y]=ch.gates,af=A.has(x),ag=A.has(y),bf=B.has(x),bg=B.has(y),ac=af&&ag,bc=bf&&bg;if((af&&!ag&&!bf&&bg)||(ag&&!af&&bf&&!bg))electromagnetic.push(ch);else if(ac&&bc)companionship.push(ch);else if(ac&&(bf||bg))compromise.push({...ch,owner:'A'});else if(bc&&(af||ag))compromise.push({...ch,owner:'B'});else if(ac&&!bf&&!bg)dominance.push({...ch,owner:'A'});else if(bc&&!af&&!ag)dominance.push({...ch,owner:'B'})}return{electromagnetic,companionship,compromise,dominance}}
-function calculate(input){const chart=calculateChart({...input,lat:Number(input.lat)||0,lon:Number(input.lon)||0});return{raw:chart,hd:derive(chart.planets),precision:chart.precision,warnings:chart.warnings||[]}}
-window.HumanMatrixHD={calculate,compare,CENTERS,CENTER_LABELS,CHANNELS,GATE_CENTER};
+function validateInput(input){
+ if(!/^\d{4}-\d{2}-\d{2}$/.test(input.date||''))throw new Error('Укажите дату в формате ДД.ММ.ГГГГ.');
+ const [y,m,d]=input.date.split('-').map(Number);const date=new Date(Date.UTC(y,m-1,d));
+ if(y<1800||y>2200||date.getUTCFullYear()!==y||date.getUTCMonth()!==m-1||date.getUTCDate()!==d)throw new Error('Нужна существующая дата с 1800 по 2200 год.');
+ if(!/^([01]\d|2[0-3]):[0-5]\d$/.test(input.time||''))throw new Error('Укажите время от 00:00 до 23:59.');
+ try{new Intl.DateTimeFormat('en',{timeZone:input.tz}).format(date);if(!input.tz)throw new Error()}catch{throw new Error('Проверьте часовой пояс: например Europe/Moscow или Europe/Tallinn.');}
+ const local=DateTime.fromISO(`${input.date}T${input.time}`,{zone:input.tz});
+ if(!local.isValid||local.toFormat('yyyy-MM-dd HH:mm')!==`${input.date} ${input.time}`)throw new Error('Такого местного времени не было из-за перевода часов. Уточните запись времени.');
+ if(local.getPossibleOffsets().length>1)throw new Error('Это время встречалось дважды при переводе часов. Укажите соответствующий момент в UTC и выберите пояс UTC.');
+}
+function calculate(input){validateInput(input);const chart=calculateChart({...input,lat:Number(input.lat)||0,lon:Number(input.lon)||0});return{raw:chart,hd:derive(chart.planets),precision:chart.precision,warnings:chart.warnings||[]}}
+function fromGates(gates){const unique=[...new Set(gates)];const planets=Object.fromEntries(unique.map((g,i)=>['gate'+i,{p:{g,l:1}}]));return derive(planets)}
+function transit(input){const c=calculate(input);const planets=Object.fromEntries(Object.entries(c.raw.planets).map(([k,v])=>[k,{p:v.p}]));return {...c,hd:derive(planets)}}
+window.HumanMatrixHD={calculate,compare,transit,fromGates,derive,validateInput,CENTERS,CENTER_LABELS,CHANNELS,GATE_CENTER};

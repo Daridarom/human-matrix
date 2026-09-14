@@ -1,35 +1,37 @@
 <!doctype html>
 <html lang="ru">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Human Matrix — прототип</title>
-<style>
-:root{--bg:#0b1020;--card:#121a2f;--soft:#1a2540;--text:#eef3ff;--muted:#99a6c2;--accent:#8ab4ff;--ok:#73e2a7;--warn:#ffd27a;--line:#26334f}
-*{box-sizing:border-box}body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,sans-serif;background:radial-gradient(circle at 10% 0%,#18284d 0,#0b1020 42%);color:var(--text)}
-.app{max-width:1180px;margin:auto;padding:28px 18px 80px}.top{display:flex;gap:16px;align-items:flex-start;justify-content:space-between;margin-bottom:22px}.brand h1{margin:0;font-size:clamp(30px,5vw,58px);letter-spacing:-.04em}.brand p{max-width:760px;color:var(--muted);line-height:1.55}.pill{border:1px solid var(--line);background:#10182b;border-radius:999px;padding:8px 12px;color:var(--muted);font-size:13px;white-space:nowrap}
-.grid{display:grid;grid-template-columns:360px 1fr;gap:18px}@media(max-width:850px){.grid{grid-template-columns:1fr}.top{flex-direction:column}}
-.panel{background:rgba(18,26,47,.88);border:1px solid var(--line);border-radius:22px;padding:18px;backdrop-filter:blur(16px)}.panel h2,.panel h3{margin-top:0}.muted{color:var(--muted)}
-.persons{display:flex;flex-direction:column;gap:10px}.person{display:flex;justify-content:space-between;gap:10px;align-items:center;padding:12px;border:1px solid var(--line);border-radius:16px;background:#0f1729}.person.active{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent) inset}.person small{display:block;color:var(--muted);margin-top:4px}.avatar{width:38px;height:38px;border-radius:12px;display:grid;place-items:center;background:var(--soft);font-weight:800}.row{display:flex;gap:8px;align-items:center}.btn{border:1px solid var(--line);background:var(--soft);color:var(--text);border-radius:12px;padding:10px 12px;cursor:pointer}.btn.primary{background:var(--accent);color:#07101f;border-color:transparent;font-weight:800}.btn.ghost{background:transparent}.btn:disabled{opacity:.4;cursor:not-allowed}
-.tabs{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}.tab{padding:9px 12px;border-radius:999px;border:1px solid var(--line);color:var(--muted);cursor:pointer}.tab.active{background:var(--text);color:#10182b;border-color:var(--text)}
-.heroCard{padding:20px;border-radius:20px;background:linear-gradient(135deg,#17284f,#11182b 58%);border:1px solid #2d477d}.heroCard h2{font-size:32px;margin-bottom:8px}.chips{display:flex;gap:8px;flex-wrap:wrap}.chip{padding:7px 10px;background:#0e1730;border:1px solid #2c406a;border-radius:999px;font-size:13px;color:#cfe0ff}
-.cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:12px}@media(max-width:650px){.cards{grid-template-columns:1fr}}.card{padding:16px;border:1px solid var(--line);border-radius:17px;background:#0f1729}.card b{display:block;margin-bottom:8px}.label{font-size:12px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted)}
-.notice{margin-top:12px;padding:12px 14px;border:1px dashed #5a6786;border-radius:14px;color:#bec8dc;background:#10182a}.good{color:var(--ok)}.warning{color:var(--warn)}
-.form{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}@media(max-width:520px){.form{grid-template-columns:1fr}}input,select{width:100%;background:#0e1628;border:1px solid var(--line);border-radius:12px;color:var(--text);padding:11px}.full{grid-column:1/-1}
-.matrix{display:grid;grid-template-columns:repeat(5,minmax(100px,1fr));gap:10px;overflow:auto}.slot{min-width:120px;padding:14px;border:1px solid var(--line);border-radius:16px;background:#10182a}.slot strong{display:block}.slot span{font-size:12px;color:var(--muted)}
-.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-top:12px}.stat{padding:14px;border:1px solid var(--line);border-radius:15px;background:#0d1527}.stat strong{display:block;font-size:19px;margin-top:5px}.bodygraph{margin-top:12px;border:1px solid var(--line);border-radius:18px;background:#0b1324;padding:14px}.bodygraph svg{width:100%;max-height:430px}.gateList{display:flex;flex-wrap:wrap;gap:6px}.gate{font-size:12px;padding:5px 8px;border-radius:999px;background:#172442;border:1px solid #30466d}.channelList{display:grid;gap:7px}.channel{padding:8px 10px;border-radius:11px;background:#101c33;border:1px solid var(--line)}@media(max-width:700px){.stats{grid-template-columns:repeat(2,minmax(0,1fr))}}
-footer{margin-top:28px;color:var(--muted);font-size:13px;line-height:1.5}
-.reading{margin-top:14px;padding:20px;border:1px solid var(--line);border-radius:18px;background:#10182a;line-height:1.65}.reading h3{margin:20px 0 6px;font-size:19px}.reading p{color:#c9d4ea;margin:0}
-</style>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#f5f5f2"><meta name="description" content="Личная карта Human Design, подробная расшифровка, взаимодействие пары и транзиты на выбранную дату.">
+<title>Human Matrix — карта человека и взаимодействия</title>
+<link rel="stylesheet" href="src/style.css">
 </head>
-<body><main class="app">
-<div class="top"><div class="brand"><h1>Human Matrix</h1><p>Экспериментальный интерфейс: человек → пара → команда. Human Design, BG5 и культурно-календарные системы подключаются как независимые слои, а фактические наблюдения хранятся отдельно от трактовок.</p></div><div class="pill">prototype 0.4 · readable personal guide</div></div>
-<div class="grid">
-<aside class="panel"><h3>Участники</h3><p class="muted">До 5 человек в одной группе. Профили сохраняются только в этом браузере.</p><div id="persons" class="persons"></div><button id="addBtn" class="btn primary" style="width:100%;margin-top:12px">+ Добавить человека</button>
-<div class="row" style="margin-top:10px;flex-wrap:wrap"><button id="exportBtn" class="btn ghost">Экспорт данных</button><button id="importBtn" class="btn ghost">Импорт</button><input id="importFile" type="file" accept="application/json" style="display:none"/></div>
-<div id="formWrap" style="display:none"><div class="form"><input id="name" placeholder="Имя"/><input id="birth" type="date"/><input id="time" type="time"/><input id="place" placeholder="Место рождения"/><input id="tz" class="full" placeholder="Часовой пояс, например Europe/Moscow"/><select id="accuracy" class="full"><option>Время точное</option><option>Время примерное</option><option>Время неизвестно</option></select></div><div class="row" style="margin-top:10px"><button id="saveBtn" class="btn primary">Сохранить</button><button id="cancelBtn" class="btn ghost">Отмена</button><button id="editBtn" class="btn ghost" style="display:none">Редактировать выбранного</button></div></div></aside>
-<section class="panel"><div class="tabs" id="tabs"></div><div id="content"></div></section>
-</div><footer>Важно: это интерфейсный прототип. Расчёты Human Design выполняются локально в браузере и не отправляют введённые профили на сервер. Визуализация является собственной функциональной схемой. Интерпретации и дополнительные системы подключаются отдельно от расчётного слоя.</footer>
+<body>
+<header class="topbar"><a href="#person" class="brand"><span class="brand-icon">✳</span> Human Matrix</a><span class="edition">Дизайн человека <span>· 0.5</span></span></header>
+<main class="app">
+<aside class="sidebar">
+<div class="side-title"><h2>Мои профили</h2><span id="profileCount"></span></div>
+<div id="persons" class="persons"></div>
+<button id="addBtn" class="btn primary wide">+ Добавить человека</button>
+<p class="privacy-note">Данные остаются в этом браузере.</p>
+<details class="data-tools"><summary>Сохранить / перенести данные</summary><p>Экспортируйте профили, чтобы открыть их на другом устройстве.</p><div class="row"><button id="exportBtn" class="btn">Экспорт</button><button id="importBtn" class="btn">Импорт</button><input id="importFile" type="file" accept="application/json,.json" hidden></div></details>
+<form id="formWrap" hidden novalidate>
+<div class="side-title"><h3 id="formTitle">Новый профиль</h3><button type="button" id="cancelBtn" class="icon-btn" aria-label="Закрыть форму">×</button></div>
+<label>Имя<input id="personName" maxlength="80" autocomplete="off" required></label>
+<label>Дата рождения<input id="birth" type="date" min="1800-01-01" max="2200-12-31" required></label>
+<div class="form-pair"><label>Время<input id="time" type="time"></label><label>Точность<select id="accuracy"><option>Время точное</option><option>Время примерное</option><option>Время неизвестно</option></select></label></div>
+<label>Место рождения<input id="place" maxlength="120" placeholder="Город и страна"></label>
+<label>Часовой пояс рождения<input id="tz" list="timezones" placeholder="Например Europe/Moscow" autocomplete="off" required></label>
+<datalist id="timezones"><option value="Europe/Moscow">Москва / Санкт-Петербург</option><option value="Europe/Simferopol">Крым</option><option value="Europe/Tallinn">Эстония</option><option value="Europe/Amsterdam">Нидерланды</option><option value="Europe/Berlin">Германия</option><option value="Europe/Kyiv">Киев</option><option value="Asia/Yekaterinburg">Екатеринбург</option><option value="Asia/Novosibirsk">Новосибирск</option><option value="America/New_York">Нью-Йорк</option><option value="America/Chicago">Чикаго</option><option value="UTC">Всемирное время</option></datalist>
+<p class="field-help">Выберите пояс места рождения. Исторический перевод часов учитывается по дате. Название города само по себе пояс не меняет.</p>
+<p id="formError" class="error" role="alert"></p><button id="saveBtn" class="btn primary wide" type="submit">Сохранить и рассчитать</button>
+</form>
+<div class="side-foot"><span class="mini-label">Как читать карту</span><p>Сначала карта и главное о человеке, затем пояснения и вопросы для наблюдения.</p><a href="#systems">О методе и точности ↗</a></div>
+</aside>
+<section class="workspace"><nav id="tabs" class="tabs" aria-label="Режим приложения"></nav><div id="content"></div></section>
 </main>
-<script src="dist/hd-core.js"></script>
-<script src="src/app.js"></script></body></html>
+<footer class="site-footer">Human Design — символическая система самопознания. Её трактовки не являются научно подтверждённой оценкой личности или прогнозом отношений.</footer>
+<div id="toast" class="toast" role="status" hidden></div>
+<dialog id="deleteDialog"><h2>Удалить профиль?</h2><p id="deleteName"></p><p>В этом браузере будут удалены профиль и его наблюдения. Экспортированный файл останется.</p><div class="row"><button id="keepPerson" class="btn">Оставить</button><button id="confirmDelete" class="btn danger">Удалить</button></div></dialog>
+<script src="dist/hd-core.js"></script><script src="src/readings.js"></script><script src="src/bodygraph.js"></script><script src="src/app.js"></script>
+</body></html>

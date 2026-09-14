@@ -1,14 +1,15 @@
 {
   "name": "human-matrix",
-  "version": "0.3.0",
+  "version": "0.5.0",
   "description": "Экспериментальный веб-интерфейс для исследования Human Design, BG5 и дополнительных календарно-символических систем.",
   "main": "index.js",
   "dependencies": {
-    "hd-chart-engine": "^0.1.1"
+    "hd-chart-engine": "^0.1.1",
+    "luxon": "3.7.2"
   },
   "scripts": {
     "build": "esbuild src/hd-core.js --bundle --platform=browser --format=iife --outfile=dist/hd-core.js --minify",
-    "test": "node tests/engine-smoke.mjs && node tests/core-smoke.mjs && node --check src/app.js"
+    "test": "node tests/engine-smoke.mjs && node tests/core-smoke.mjs && node tests/reference-regression.mjs && node tests/ui-regression.mjs && node --check src/app.js"
   },
   "repository": {
     "type": "git",
@@ -23,6 +24,7 @@
   "homepage": "https://github.com/Daridarom/human-matrix#readme",
   "private": true,
   "devDependencies": {
-    "esbuild": "^0.28.2"
+    "esbuild": "^0.28.2",
+    "jsdom": "^26.1.0"
   }
 }
