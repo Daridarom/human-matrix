@@ -6,3 +6,5 @@
 @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
 
 .place-picker{position:relative}.place-results{list-style:none;margin:4px 0 10px;padding:4px;border:1px solid #c8ccc6;border-radius:10px;background:#fff;max-height:240px;overflow:auto}.place-results li{padding:12px 9px;cursor:pointer;border-radius:6px;font-size:13px;line-height:1.45}.place-results li:hover,.place-results li[aria-selected="true"]{background:#e5eee9}.zone-settings{margin:12px 0;font-size:12px}.manual-zone{display:flex!important;align-items:center;gap:8px}.manual-zone input{width:auto!important}input[readonly]{background:#edf0ec;color:#47594f}#placeSearch{margin-top:6px}#placeStatus{min-height:2.5em}
+
+@media(min-width:1100px){.sidebar:has(#formWrap:not([hidden])){position:static}}
