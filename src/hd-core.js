@@ -28,4 +28,5 @@ function validateInput(input){
 function calculate(input){validateInput(input);const chart=calculateChart({...input,lat:Number(input.lat)||0,lon:Number(input.lon)||0});return{raw:chart,hd:derive(chart.planets),precision:chart.precision,warnings:chart.warnings||[]}}
 function fromGates(gates){const unique=[...new Set(gates)];const planets=Object.fromEntries(unique.map((g,i)=>['gate'+i,{p:{g,l:1}}]));return derive(planets)}
 function transit(input){const c=calculate(input);const planets=Object.fromEntries(Object.entries(c.raw.planets).map(([k,v])=>[k,{p:v.p}]));return {...c,hd:derive(planets)}}
-window.HumanMatrixHD={calculate,compare,transit,fromGates,derive,validateInput,CENTERS,CENTER_LABELS,CHANNELS,GATE_CENTER};
+function zoneLabel(date,time,tz){const local=DateTime.fromISO(`${date}T${time||'12:00'}`,{zone:tz});if(!local.isValid)return `${tz} · смещение появится после ввода даты`;if(local.getPossibleOffsets().length>1)return `${tz} · время неоднозначно из-за перевода часов`;return `${tz} · UTC${local.toFormat('ZZ')} на дату рождения${time?'':' (в 12:00)'}`;}
+window.HumanMatrixHD={zoneLabel,calculate,compare,transit,fromGates,derive,validateInput,CENTERS,CENTER_LABELS,CHANNELS,GATE_CENTER};

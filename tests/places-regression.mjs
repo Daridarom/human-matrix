@@ -1,0 +1,16 @@
+import {JSDOM} from 'jsdom';
+import fs from 'node:fs';
+import vm from 'node:vm';
+import assert from 'node:assert/strict';
+const dom=new JSDOM(fs.readFileSync('index.html','utf8'),{url:'https://example.test/',runScripts:'outside-only'}),w=dom.window,d=w.document;
+w.HTMLElement.prototype.scrollIntoView=()=>{};
+const requests=[];w.fetch=(url,options)=>new Promise((resolve,reject)=>requests.push({url,options,resolve,reject}));
+for(const file of ['dist/hd-core.js','src/places.js'])vm.runInContext(fs.readFileSync(file,'utf8'),dom.getInternalVMContext());
+const picker=w.createPlacePicker(),el=id=>d.getElementById(id),change=v=>{el('place').value=v;el('place').dispatchEvent(new w.Event('input'))},settle=()=>new Promise(r=>setTimeout(r,0));
+el('birth').value='1989-03-26';el('time').value='21:45';picker.reset({});
+change('Сестрорецк');el('placeSearch').click();assert.equal(requests.length,1);assert(!String(requests[0].url).includes('1989'));
+requests[0].resolve({ok:true,json:async()=>({results:[{id:496278,name:'Сестрорецк',admin1:'Санкт-Петербург',country:'Россия',latitude:60.1,longitude:29.9,timezone:'Europe/Moscow'}]})});await settle();el('placeResults').firstChild.click();assert.equal(el('tz').value,'Europe/Moscow');assert(el('zoneInfo').textContent.includes('UTC+04:00'));assert.equal(picker.value().placeId,496278);
+change('Берлин');assert.equal(el('tz').value,'');assert.throws(()=>picker.value(),/Выберите место/);el('placeSearch').click();change('Таллин');el('placeSearch').click();requests[2].resolve({ok:true,json:async()=>({results:[{name:'Таллин',timezone:'Europe/Tallinn'}]})});await settle();requests[1].resolve({ok:true,json:async()=>({results:[{name:'Берлин',timezone:'Europe/Berlin'}]})});await settle();assert.equal(el('placeResults').firstChild.textContent,'Таллин');
+el('place').dispatchEvent(new w.KeyboardEvent('keydown',{key:'ArrowDown'}));el('place').dispatchEvent(new w.KeyboardEvent('keydown',{key:'Enter'}));assert.equal(el('tz').value,'Europe/Tallinn');
+change('Ошибка');el('placeSearch').click();requests[3].reject(new Error('offline'));await settle();assert.equal(el('tz').value,'');assert(el('placeStatus').textContent.includes('недоступен'));assert.throws(()=>picker.value());
+el('place').value='Старое место';el('tz').value='Europe/Moscow';picker.reset({place:'Старое место',tz:'Europe/Moscow'});assert.doesNotThrow(()=>picker.value());picker.close();w.close();console.log('Places: automatic IANA zone, historical Moscow UTC+4, keyboard selection, stale-response protection, failed search, legacy profiles.');

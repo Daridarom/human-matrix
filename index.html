@@ -4,10 +4,10 @@
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#f5f5f2"><meta name="description" content="Личная карта Human Design, подробная расшифровка, взаимодействие пары и транзиты на выбранную дату.">
 <title>Human Matrix — карта человека и взаимодействия</title>
-<link rel="stylesheet" href="src/style.css?v=0.5.0">
+<link rel="stylesheet" href="src/style.css?v=0.5.1">
 </head>
 <body>
-<header class="topbar"><a href="#person" class="brand"><span class="brand-icon">✳</span> Human Matrix</a><span class="edition">Дизайн человека <span>· 0.5</span></span></header>
+<header class="topbar"><a href="#person" class="brand"><span class="brand-icon">✳</span> Human Matrix</a><span class="edition">Дизайн человека <span>· 0.5.1</span></span></header>
 <main class="app">
 <aside class="sidebar">
 <div class="side-title"><h2>Мои профили</h2><span id="profileCount"></span></div>
@@ -20,10 +20,13 @@
 <label>Имя<input id="personName" maxlength="80" autocomplete="off" required></label>
 <label>Дата рождения<input id="birth" type="date" min="1800-01-01" max="2200-12-31" required></label>
 <div class="form-pair"><label>Время<input id="time" type="time"></label><label>Точность<select id="accuracy"><option>Время точное</option><option>Время примерное</option><option>Время неизвестно</option></select></label></div>
-<label>Место рождения<input id="place" maxlength="120" placeholder="Город и страна"></label>
-<label>Часовой пояс рождения<input id="tz" list="timezones" placeholder="Например Europe/Moscow" autocomplete="off" required></label>
-<datalist id="timezones"><option value="Europe/Moscow">Москва / Санкт-Петербург</option><option value="Europe/Simferopol">Крым</option><option value="Europe/Tallinn">Эстония</option><option value="Europe/Amsterdam">Нидерланды</option><option value="Europe/Berlin">Германия</option><option value="Europe/Kyiv">Киев</option><option value="Asia/Yekaterinburg">Екатеринбург</option><option value="Asia/Novosibirsk">Новосибирск</option><option value="America/New_York">Нью-Йорк</option><option value="America/Chicago">Чикаго</option><option value="UTC">Всемирное время</option></datalist>
-<p class="field-help">Выберите пояс места рождения. Исторический перевод часов учитывается по дате. Название города само по себе пояс не меняет.</p>
+<div class="place-picker"><label>Место рождения<input id="place" maxlength="180" placeholder="Начните вводить город" autocomplete="off" role="combobox" aria-autocomplete="list" aria-controls="placeResults" aria-expanded="false" aria-describedby="placeStatus"></label><ul id="placeResults" class="place-results" role="listbox" aria-label="Найденные города" hidden></ul></div>
+<button type="button" id="placeSearch" class="btn">Найти город</button>
+<p id="placeStatus" class="field-help" role="status"></p>
+<label>Часовой пояс рождения<input id="tz" placeholder="Определяется автоматически" autocomplete="off" readonly required></label>
+<p id="zoneInfo" class="field-help" aria-live="polite"></p>
+<details class="zone-settings"><summary>Дополнительные настройки</summary><label class="manual-zone"><input id="manualZone" type="checkbox">Указать часовой пояс вручную</label><p class="field-help">Если города нет в поиске или нужно уточнить повторяющееся время при переводе часов. Используйте название вида Europe/Moscow или UTC.</p></details>
+<p class="field-help">Поиск: <a href="https://open-meteo.com/" target="_blank" rel="noopener">Open-Meteo</a> / <a href="https://www.geonames.org/" target="_blank" rel="noopener">GeoNames</a>. Сервису передаётся только введённое название места.</p>
 <p id="formError" class="error" role="alert"></p><button id="saveBtn" class="btn primary wide" type="submit">Сохранить и рассчитать</button>
 </form>
 <div class="side-foot"><span class="mini-label">Как читать карту</span><p>Сначала карта и главное о человеке, затем пояснения и вопросы для наблюдения.</p><a href="#systems">О методе и точности ↗</a></div>
@@ -33,5 +36,5 @@
 <footer class="site-footer">Human Design — символическая система самопознания. Её трактовки не являются научно подтверждённой оценкой личности или прогнозом отношений.</footer>
 <div id="toast" class="toast" role="status" hidden></div>
 <dialog id="deleteDialog"><h2>Удалить профиль?</h2><p id="deleteName"></p><p>В этом браузере будут удалены профиль и его наблюдения. Экспортированный файл останется.</p><div class="row"><button id="keepPerson" class="btn">Оставить</button><button id="confirmDelete" class="btn danger">Удалить</button></div></dialog>
-<script src="dist/hd-core.js?v=0.5.0"></script><script src="src/readings.js?v=0.5.0"></script><script src="src/bodygraph.js?v=0.5.0"></script><script src="src/app.js?v=0.5.0"></script>
+<script src="dist/hd-core.js?v=0.5.1"></script><script src="src/readings.js?v=0.5.1"></script><script src="src/bodygraph.js?v=0.5.1"></script><script src="src/places.js?v=0.5.1"></script><script src="src/app.js?v=0.5.1"></script>
 </body></html>
