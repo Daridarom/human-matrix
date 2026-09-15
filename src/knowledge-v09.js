@@ -109,7 +109,7 @@
   }
 
   function roadmap(h){
-    return `<section id="orientation" class="reading-section orientation-section"><div class="section-head"><div><div class="eyebrow">Как не утонуть в деталях</div><h2>Читайте карту слоями</h2></div><span>от основы к деталям</span></div><p class="section-intro">Карта содержит десятки элементов, но их не нужно осваивать одновременно. Сначала — способ двигаться и принимать решения, затем стабильная механика, чувствительность к среде, роль и только потом отдельные ворота и линии.</p>${typeAuthorityBlock(h)}<div class="roadmap-row"><div><strong>3 · Механика</strong><span>Определённость, центры и полные каналы</span></div><div><strong>4 · Чувствительность</strong><span>Неопределённые и полностью открытые центры</span></div><div><strong>5 · Роль</strong><span>Профиль: сознательная и бессознательная линии</span></div><div><strong>6 · Детали</strong><span>Ворота, линии и планетарные активации</span></div></div><div class="notice soft"><strong>Принцип Human Matrix:</strong> рассчитанные данные показываем как факты расчёта; значения системы — как трактовку Human Design; психологические и интегральные упражнения — только как гипотезы для наблюдения.</div></section>`;
+    return `<section id="orientation" class="reading-section orientation-section"><div class="section-head"><div><div class="eyebrow">Как не утонуть в деталях</div><h2>Читайте карту слоями</h2></div><div class="depth-switch v09-depth" role="group" aria-label="Глубина расшифровки"><button type="button" data-depth="simple">Коротко</button><button type="button" data-depth="full">Глубоко</button></div></div><p class="section-intro">Карта содержит десятки элементов, но их не нужно осваивать одновременно. Сначала — способ двигаться и принимать решения, затем стабильная механика, чувствительность к среде, роль и только потом отдельные ворота и линии.</p>${typeAuthorityBlock(h)}<div class="roadmap-row"><div><strong>3 · Механика</strong><span>Определённость, центры и полные каналы</span></div><div><strong>4 · Чувствительность</strong><span>Неопределённые и полностью открытые центры</span></div><div><strong>5 · Роль</strong><span>Профиль: сознательная и бессознательная линии</span></div><div><strong>6 · Детали</strong><span>Ворота, линии и планетарные активации</span></div></div><div class="notice soft"><strong>Принцип Human Matrix:</strong> рассчитанные данные показываем как факты расчёта; значения системы — как трактовку Human Design; психологические и интегральные упражнения — только как гипотезы для наблюдения.</div></section>`;
   }
 
   function profileBlock(h){
@@ -136,6 +136,8 @@
     if(!p||!c.ready)return html;
     const h=c.hd;
     html=html.replace('<section id="reading"',roadmap(h)+'<section id="reading"');
+    html=html.replace('<section id="reading" class="reading-section"','<section id="reading" class="reading-section deep-only"');
+    html=html.replace('<section id="integral" class="reading-section"','<section id="integral" class="reading-section deep-only"');
     html=html.replace('<section id="channels"',profileBlock(h)+definitionBlock(h)+'<section id="channels"');
     html=html.replace('</nav>','<a class="deep-link" href="#profile-deep">Профиль</a><a class="deep-link" href="#definition-deep">Определённость</a></nav>');
     return html;
