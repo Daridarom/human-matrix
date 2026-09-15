@@ -89,18 +89,32 @@
       const g=+key,t=HD_TEXT.gates[key],acts=h.activations.filter(x=>x.gate===g),allChannels=HumanMatrixHD.CHANNELS.filter(ch=>ch.gates.includes(g));
       const activeKeys=new Set(h.channels.map(ch=>ch.key));
       const center=HumanMatrixHD.GATE_CENTER[g];
-      const actHtml=acts.length?acts.map(a=>`<div class="activation-detail"><span class="side-dot ${a.side}"></span><span>${a.side==='personality'?'Личность':'Дизайн'} · ${esc(bodyNames[a.body]||a.body)}</span><strong>${a.gate}.${a.line}</strong></div>`).join(''):'<p class="supporting">В этой карте ворота не активированы.</p>';
+      const actHtml=acts.length?acts.map(a=>{
+        const line=LINE_DEEP[a.line];
+        return `<div class="activation-detail"><span class="side-dot ${a.side}"></span><span>${a.side==='personality'?'Личность':'Дизайн'} · ${esc(bodyNames[a.body]||a.body)}</span><strong>${a.gate}.${a.line}</strong></div><p class="line-context">${hdBadge('Линия '+a.line)}<span>${esc(line.classic)} — ${esc(line.text)}</span></p>`;
+      }).join(''):'<p class="supporting">В этой карте ворота не активированы.</p>';
       const links=allChannels.map(ch=>`<span class="channel-chip ${activeKeys.has(ch.key)?'on':''}">${ch.gates.join('–')} · ${esc(ch.name)}${activeKeys.has(ch.key)?' · полный':''}</span>`).join('');
-      return `<div class="eyebrow">Ворота ${g} · ${esc(HumanMatrixHD.CENTER_LABELS[center])}</div><h3>${esc(t[0])}</h3><div class="knowledge-head">${calcBadge(acts.length?'Активированы':'Не активированы')}</div><p>${esc(t[1])}</p><div class="activation-detail-list">${actHtml}</div><div class="channel-chip-list">${links}</div><div class="interpretive-box">${hdBadge('Контекст чтения')}<p>Ворота — только часть целой карты. Линия уточняет способ проявления темы, а полный канал создаёт определённость между двумя центрами. Не делайте вывод о человеке по одним воротам.</p></div>`;
+      return `<div class="eyebrow">Ворота ${g} · ${esc(HumanMatrixHD.CENTER_LABELS[center])}</div><h3>${esc(t[0])}</h3><div class="knowledge-head">${calcBadge(acts.length?'Активированы':'Не активированы')}</div><p>${esc(t[1])}</p><div class="activation-detail-list">${actHtml}</div><div class="channel-chip-list">${links}</div><div class="interpretive-box">${hdBadge('Контекст чтения')}<p>Ворота — только часть целой карты. Линия уточняет способ проявления темы в этом конкретном месте карты, а полный канал создаёт определённость между двумя центрами. Не делайте вывод о человеке по одним воротам.</p></div>`;
     }
     return '';
   };
 
+  const MOTOR_CENTERS=['heart','sacral','solarplexus','root'];
+  function constructionType(ch){
+    const [ca,cb]=ch.centers;
+    if(ch.centers.includes('throat')&&ch.centers.some(c=>MOTOR_CENTERS.includes(c)))
+      return 'Мотор → Горло: возможность прямого проявления в действии или речи, когда канал активен.';
+    if(ch.centers.every(c=>MOTOR_CENTERS.includes(c)))
+      return 'Мотор ↔ Мотор: две волевые/энергетические темы работают друг на друга.';
+    const ka=CENTER_DEEP[ca]?.kind,kb=CENTER_DEEP[cb]?.kind;
+    if(ka&&kb&&ka===kb)return `${esc(ka)} ↔ ${esc(kb)}: канал соединяет однородные по функции центры.`;
+    return `${esc(ka||'')} ↔ ${esc(kb||'')}.`;
+  }
   const oldChannelCard=channelCard;
   channelCard=function(ch,extra='',cl=''){
     const f=CHANNEL_FAMILY[ch.key],centers=(ch.centers||[]).map(c=>HumanMatrixHD.CENTER_LABELS[c]).join(' ↔ ');
     if(!f)return oldChannelCard(ch,extra,cl);
-    return `<article class="reading-card ${cl}"><div class="channel-name"><span class="badge">${ch.gates.join('–')}</span><h3>${esc(ch.name)}</h3></div><div class="channel-meta"><span>${esc(f.group)}</span><span>${esc(f.circuit)}</span><span>${esc(f.key)}</span></div>${centers?`<p class="supporting">${esc(centers)}</p>`:''}<p>${esc(HD_TEXT.channels[ch.key]||'Полный канал соединяет два центра и формирует часть определённости карты.')}</p>${extra}</article>`;
+    return `<article class="reading-card ${cl}"><div class="channel-name"><span class="badge">${ch.gates.join('–')}</span><h3>${esc(ch.name)}</h3></div><div class="channel-meta"><span>${esc(f.group)}</span><span>${esc(f.circuit)}</span><span>${esc(f.key)}</span></div>${centers?`<p class="supporting">${esc(centers)}</p>`:''}<p>${esc(HD_TEXT.channels[ch.key]||'Полный канал соединяет два центра и формирует часть определённости карты.')}</p><p class="construction-type">${constructionType(ch)}</p>${extra}</article>`;
   };
 
   function typeAuthorityBlock(h){
