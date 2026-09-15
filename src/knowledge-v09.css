@@ -56,12 +56,24 @@
 .workspace.depth-simple .deep-only{display:none}
 .workspace.depth-simple .jump-nav .deep-link,.workspace.depth-simple .jump-nav a[href="#reading"],.workspace.depth-simple .jump-nav a[href="#integral"]{display:none}
 
+
+.pair-guide-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin:14px 0}
+.pair-guide-grid article{position:relative;padding:14px;border:1px solid var(--line);border-radius:12px;background:#fff}
+.pair-guide-grid article h3{margin:9px 0 5px;font-size:14px}
+.pair-guide-grid article p{margin:5px 0}
+.relationship-legend{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:12px 0}
+.relationship-legend>div{padding:12px;border:1px solid var(--line);border-radius:10px;background:#fff}
+.relationship-legend strong{display:block;margin-bottom:4px;font-size:11px}
+.relationship-legend span{display:block;color:var(--muted);font-size:10px;line-height:1.45}
+
 @media(max-width:800px){
  .roadmap-row{grid-template-columns:1fr 1fr}
  .orientation-grid,.profile-deep-grid,.knowledge-levels{grid-template-columns:1fr}
+ .pair-guide-grid{grid-template-columns:1fr 1fr}
 }
 @media(max-width:520px){
  .orientation-section{padding:16px 12px}
+ .pair-guide-grid,.relationship-legend{grid-template-columns:1fr}
  .roadmap-row{grid-template-columns:1fr}
  .mechanics-mini{grid-template-columns:1fr}
  .definition-group{grid-template-columns:1fr;gap:3px}
