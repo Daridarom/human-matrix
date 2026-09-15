@@ -25,32 +25,6 @@
     return `<aside class="activation-rail ${design?'design':'personality'}" aria-label="${title}"><div class="rail-title"><strong>${title}</strong><span>${design?'красный · до рождения':'чёрный · момент рождения'}</span></div><div class="rail-rows">${BODY_ORDER.map(key=>{const a=map.get(key);return `<div class="rail-row"><span class="planet-symbol" aria-hidden="true">${BODY_SYMBOLS[key]||'•'}</span><span class="planet-name">${esc(bodyNames[key]||key)}</span><strong>${a?`${a.gate}.${a.line}`:'—'}</strong></div>`}).join('')}</div></aside>`;
   }
 
-  function channelSegments(ch){
-    const p=GRAPH.gates[ch.gates[0]],q=GRAPH.gates[ch.gates[1]];
-    const routed={'16-48':14,'20-57':105,'20-34':142,'10-34':153,'10-57':119,'12-22':352,'35-36':427,'21-45':310,'37-40':356,'26-44':135};
-    if(routed[ch.key]!==undefined){
-      const x=routed[ch.key],midY=(p[1]+q[1])/2;
-      return [`M ${p[0]} ${p[1]} L ${x} ${p[1]} L ${x} ${midY}`,`M ${q[0]} ${q[1]} L ${x} ${q[1]} L ${x} ${midY}`];
-    }
-    const mx=(p[0]+q[0])/2,my=(p[1]+q[1])/2;
-    return [`M ${p[0]} ${p[1]} L ${mx} ${my}`,`M ${q[0]} ${q[1]} L ${mx} ${my}`];
-  }
-
-  bodygraph = function(h,{other=null,names=['Личность','Дизайн'],id='chart',selection=null}={}){
-    const uid='bg'+(++graphSequence),dual=!!other;
-    const a=new Set(dual?h.gates:h.activations.filter(x=>x.side==='personality').map(x=>x.gate));
-    const b=new Set(dual?other.gates:h.activations.filter(x=>x.side==='design').map(x=>x.gate));
-    const merged=dual?HumanMatrixHD.fromGates([...a,...b]):h;
-    const colorA=dual?'#2764bd':'#263345',colorB=dual?'#138275':'#d95760';
-    const ink=g=>a.has(g)&&b.has(g)?`url(#${uid}-both)`:a.has(g)?colorA:b.has(g)?colorB:'#dce1e7';
-    const defined=new Set(merged.definedCenters);
-    const lines=HumanMatrixHD.CHANNELS.map(ch=>{const paths=channelSegments(ch),act=ch.gates.every(g=>a.has(g)||b.has(g));return `<g data-channel="${ch.key}"><title>${ch.gates.join('–')} · ${esc(ch.name)}</title>${paths.map((d,i)=>`<path d="${d}" fill="none" stroke="#eef1f4" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/><path d="${d}" fill="none" stroke="${ink(ch.gates[i])}" stroke-width="${act?5.8:4.8}" stroke-linecap="round" stroke-linejoin="round"/>`).join('')}</g>`}).join('');
-    const centers=Object.entries(GRAPH.centers).map(([k,c])=>`<g class="map-target" role="button" tabindex="0" data-detail="center:${k}" aria-label="Центр ${esc(HumanMatrixHD.CENTER_LABELS[k])}"><title>${esc(HumanMatrixHD.CENTER_LABELS[k])}: ${defined.has(k)?'определён':'не определён'}</title><polygon points="${c.shape}" fill="${defined.has(k)?c.color:'#fff'}" stroke="${selection==='center:'+k?'#224f90':'#95a2ad'}" stroke-width="${selection==='center:'+k?3:1.5}"/></g>`).join('');
-    const gates=Object.entries(GRAPH.gates).map(([g,[x,y]])=>{const on=a.has(+g)||b.has(+g);return `<g class="map-target" role="button" tabindex="0" data-detail="gate:${g}" aria-label="Ворота ${g}: ${esc(HD_TEXT.gates[g][0])}"><title>${g} · ${esc(HD_TEXT.gates[g][0])}${on?' — активированы':''}</title><circle cx="${x}" cy="${y}" r="${selection==='gate:'+g?10.4:8.3}" fill="${on?ink(+g):'#fff'}" stroke="${selection==='gate:'+g?'#224f90':on?'#fff':'#a3acb4'}" stroke-width="${selection==='gate:'+g?2:0.65}"/><text x="${x}" y="${y+3.8}" fill="${on?'#fff':'#4b5c6c'}" font-size="10.5" font-family="system-ui,sans-serif" text-anchor="middle" font-weight="650">${g}</text></g>`}).join('');
-    const legend=`<div class="legend"><span><i style="background:${colorA}"></i>${esc(names[0])}</span><span><i style="background:${colorB}"></i>${esc(names[1])}</span><span><i class="mixed" style="--one:${colorA};--two:${colorB}"></i>Оба слоя</span></div>`;
-    return `<div class="bodygraph geometric" id="${id}"><svg viewBox="0 0 440 682" role="group" aria-label="Бодиграф: девять центров, 64 ворот и 36 каналов"><defs><pattern id="${uid}-both" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(35)"><rect width="6" height="6" fill="${colorA}"/><rect width="3" height="6" fill="${colorB}"/></pattern></defs>${lines}${centers}${gates}</svg>${legend}<p class="map-hint">Нажмите на центр или номер ворот, чтобы открыть пояснение.</p></div>`;
-  };
-
   chartCard = function(h,options={}){
     const personal=!options.other&&!options.title;
     const chart=bodygraph(h,options);
