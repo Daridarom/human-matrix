@@ -52,8 +52,9 @@
 .knowledge-levels article{padding:15px;border:1px solid var(--line);border-radius:12px;background:#fff}
 .knowledge-levels h3{margin:9px 0 6px;font-size:14px}
 .knowledge-levels p{margin:0;color:#586a77}
+.quick-start{display:none!important}
 .workspace.depth-simple .deep-only{display:none}
-.workspace.depth-simple .jump-nav .deep-link{display:none}
+.workspace.depth-simple .jump-nav .deep-link,.workspace.depth-simple .jump-nav a[href="#reading"],.workspace.depth-simple .jump-nav a[href="#integral"]{display:none}
 
 @media(max-width:800px){
  .roadmap-row{grid-template-columns:1fr 1fr}
