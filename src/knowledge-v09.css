@@ -66,14 +66,20 @@
 .relationship-legend strong{display:block;margin-bottom:4px;font-size:11px}
 .relationship-legend span{display:block;color:var(--muted);font-size:10px;line-height:1.45}
 
+
+.transit-guide-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin:14px 0}
+.transit-guide-grid article{padding:14px;border:1px solid var(--line);border-radius:12px;background:#fff}
+.transit-guide-grid h3{margin:9px 0 5px;font-size:14px}
+.transit-guide-grid p{margin:5px 0;color:#586a77}
+
 @media(max-width:800px){
  .roadmap-row{grid-template-columns:1fr 1fr}
  .orientation-grid,.profile-deep-grid,.knowledge-levels{grid-template-columns:1fr}
- .pair-guide-grid{grid-template-columns:1fr 1fr}
+ .pair-guide-grid,.transit-guide-grid{grid-template-columns:1fr 1fr}
 }
 @media(max-width:520px){
  .orientation-section{padding:16px 12px}
- .pair-guide-grid,.relationship-legend{grid-template-columns:1fr}
+ .pair-guide-grid,.relationship-legend,.transit-guide-grid{grid-template-columns:1fr}
  .roadmap-row{grid-template-columns:1fr}
  .mechanics-mini{grid-template-columns:1fr}
  .definition-group{grid-template-columns:1fr;gap:3px}

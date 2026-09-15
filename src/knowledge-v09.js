@@ -160,6 +160,26 @@
     return html;
   };
 
+  function transitGuide(t,p,personal,transit,combined,overlay){
+    const personalChannels=new Set(personal?.hd?.channels?.map(ch=>ch.key)||[]);
+    const newChannels=overlay?combined.channels.filter(ch=>!personalChannels.has(ch.key)):transit.hd.channels;
+    const personalCenters=new Set(personal?.hd?.definedCenters||[]);
+    const newCenters=overlay?combined.definedCenters.filter(c=>!personalCenters.has(c)):transit.hd.definedCenters;
+    return `<section id="transit-guide" class="reading-section orientation-section transit-guide"><div class="section-head"><div><div class="eyebrow">Как читать транзит</div><h2>${overlay?'Личная карта остаётся основой':'Карта выбранного момента'}</h2></div><span>${esc(fmtDate(t.date))} · ${esc(t.time)}</span></div><p class="section-intro">${overlay?'Транзитный слой показывает временные активации выбранного момента и то, какие связи они создают с вашей постоянной картой. Он не заменяет ваш натальный Тип, Профиль или Авторитет.':'В этом режиме показаны только положения выбранного момента без наложения на личную карту. Это карта момента, а не новый профиль человека.'}</p><div class="transit-guide-grid"><article>${calcBadge('1 · Основа')}<h3>${overlay?esc(p.name):'Выбранный момент'}</h3><p>${overlay?`${esc(typeName(personal.hd))} · ${esc(authorityName(personal.hd))} · профиль ${esc(personal.hd.profile)}`:'Транзитный слой из текущих планетарных активаций.'}</p></article><article>${hdBadge('2 · Временный слой')}<h3>${transit.hd.gates.length} активных ворот</h3><p>Эти активации относятся к выбранным дате и времени и меняются вместе с движением планет.</p></article><article>${hdBadge('3 · Что возникает')}<h3>${newChannels.length} ${overlay?'новых':'полных'} каналов</h3><p>${newCenters.length?`${overlay?'Временно добавляются':'Определены'} центры: ${esc(newCenters.map(c=>HumanMatrixHD.CENTER_LABELS[c]).join(', '))}.`:'Дополнительных определённых центров в этом слое нет.'}</p></article><article>${practiceBadge('4 · Наблюдение')}<h3>Не прогноз, а контекст</h3><p>${overlay?'Сравните: что ощущается иначе именно в этот период и исчезает ли тема при смене транзита? Не приписывайте событие карте заранее.':'Используйте карту момента как символический контекст, а не как предсказание события или характеристику человека.'}</p></article></div>${overlay?`<div class="notice soft"><strong>Важно:</strong> в терминологии Human Design транзит может временно дополнять «висячие» ворота и создавать каналы в открытых областях. Human Matrix показывает это как временное наложение и не переписывает вашу исходную карту.</div>`:''}</section>`;
+  }
+
+  const oldTransitView=transitView;
+  transitView=function(){
+    const html=oldTransitView();
+    const t=state.transit,p=active();
+    let transit;
+    try{transit=HumanMatrixHD.transit(t)}catch{return html}
+    const personal=calcFor(p);
+    if(t.overlay&&!personal.ready)return html;
+    const combined=t.overlay?HumanMatrixHD.fromGates([...personal.hd.gates,...transit.hd.gates]):transit.hd;
+    return html.replace('<div class="chart-layout">',transitGuide(t,p,personal,transit,combined,t.overlay)+'<div class="chart-layout">');
+  };
+
   const oldSystemsView=systemsView;
   systemsView=function(){
     return oldSystemsView()+section('knowledge-model','Как Human Matrix разделяет знание',`<div class="knowledge-levels"><article>${calcBadge('1 · Расчёт')}<h3>Что получилось из даты, времени и места</h3><p>Планетарные активации, ворота и линии, центры, полные каналы, Тип, Авторитет, Профиль и группы определённости.</p></article><article>${hdBadge('2 · Классический слой')}<h3>Что означает это в системе</h3><p>Терминология и порядок чтения сверяются с базовой литературой Human Design. Это именно трактовка системы, а не научная психодиагностика.</p></article><article>${practiceBadge('3 · Практика')}<h3>Что можно проверить в жизни</h3><p>Вопросы для наблюдения, записи ситуаций, договорённости и интегральные упражнения. Они не должны подтверждать карту любой ценой.</p></article><article><span class="knowledge-tag user">4 · Ваш опыт</span><h3>Что оказалось правдой лично для вас</h3><p>Наблюдения пользователя важнее попытки «соответствовать» описанию. Несовпадение тоже является полезным результатом.</p></article></div>`,'Четыре разных уровня')+section('accuracy-roadmap','Глубина, которую добавляем только после проверки',`<div class="read-grid">${card('Уже рассчитывается','Два слоя активаций, ворота и линии, каналы, центры, Тип, Авторитет, Профиль, определённость, пары и транзиты.')}${card('Нужна дополнительная верификация','Переменные R/L, цвет, тон, база, расширенный слой Инкарнационного Креста и более глубокая дифференциация некоторых механик.')}${card('Почему не спешим','В исходных материалах эти уровни существуют, но визуальная полнота без проверенного расчёта была бы хуже честного ограничения. Поэтому приложение явно показывает границу текущей точности.')}${card('Контроль','Каждый новый уровень сначала сверяется на нескольких контрольных картах, затем добавляется в расчёт, тесты и только после этого — в интерфейс.')}</div>`,'Точность важнее количества');
