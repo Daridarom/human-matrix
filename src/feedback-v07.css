@@ -54,7 +54,7 @@
  .depth-switch{margin-top:13px;width:max-content}
 }
 @media(max-width:390px){
- .planet-name{display:none}
- .rail-row{grid-template-columns:20px 1fr}
- .rail-row strong{text-align:right}
+ .rail-row{grid-template-columns:14px minmax(0,1fr) auto;gap:3px}
+ .planet-name{font-size:8px}
+ .rail-row strong{text-align:right;font-size:10px}
 }
