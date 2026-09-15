@@ -1,0 +1,60 @@
+/* Human Matrix 0.7 — user feedback pass */
+.tabs .tab[href="#observations"],.tabs .tab[href="#systems"]{display:none}
+.utility-nav{display:flex;flex-direction:column;gap:6px;margin-top:14px;padding-top:12px;border-top:1px solid var(--line)}
+.utility-nav a{font-size:12px;color:var(--muted)}
+.utility-nav a:hover{color:var(--ink)}
+
+.chart-card.has-activations{padding:16px 12px 13px}
+.bodygraph-with-activations{display:grid;grid-template-columns:112px minmax(245px,1fr) 112px;gap:8px;align-items:start}
+.bodygraph-center{min-width:0}
+.activation-rail{--rail:#263345;border-top:3px solid var(--rail);background:#f8f9fa;border-radius:9px;padding:9px 7px 7px;min-width:0}
+.activation-rail.design{--rail:#d95760}
+.activation-rail.personality{--rail:#263345}
+.rail-title{display:flex;flex-direction:column;gap:1px;padding:0 3px 7px;border-bottom:1px solid var(--line)}
+.rail-title strong{font-size:12px;line-height:1.2;color:var(--rail)}
+.rail-title span{font-size:8.5px;line-height:1.25;color:var(--muted)}
+.rail-rows{display:grid;gap:0}
+.rail-row{display:grid;grid-template-columns:15px minmax(0,1fr) auto;gap:3px;align-items:center;min-height:26px;border-bottom:1px solid #e9edef;font-size:9px}
+.rail-row:last-child{border-bottom:0}
+.planet-symbol{font-size:13px;color:var(--rail);text-align:center}
+.planet-name{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--muted)}
+.rail-row strong{font-size:10.5px;color:var(--rail);font-variant-numeric:tabular-nums}
+.bodygraph.geometric svg{max-height:570px}
+.bodygraph.geometric path{shape-rendering:geometricPrecision}
+
+.quick-start{margin-top:24px;border-top:0;background:#f0f4f7;border:1px solid #d9e3ea;border-radius:16px;padding:20px}
+.quick-start .section-head{align-items:flex-start;margin-bottom:10px}
+.quick-start .section-head h2{margin-top:5px}
+.beginner-card{background:#fff}
+.beginner-card .eyebrow{margin-bottom:7px}
+.beginner-note{margin-top:14px;padding:13px 15px;background:#fff;border-left:3px solid var(--accent);border-radius:8px;font-size:12px;color:#596a78}
+.depth-switch{display:flex;gap:4px;padding:3px;background:#fff;border:1px solid var(--line);border-radius:10px;flex:none}
+.depth-switch button{border:0;background:transparent;border-radius:7px;padding:6px 10px;color:var(--muted);font-size:11px;cursor:pointer}
+.depth-switch button.active{background:var(--ink);color:#fff}
+.workspace.depth-simple #channels,.workspace.depth-simple #centers,.workspace.depth-simple #gates,.workspace.depth-simple #activations{display:none}
+.workspace.depth-simple .jump-nav a[href="#channels"],.workspace.depth-simple .jump-nav a[href="#centers"],.workspace.depth-simple .jump-nav a[href="#gates"],.workspace.depth-simple .jump-nav a[href="#activations"]{display:none}
+
+@media(max-width:1250px){
+ .bodygraph-with-activations{grid-template-columns:1fr 1fr;gap:10px}
+ .bodygraph-center{grid-column:1/-1;grid-row:1}
+ .activation-rail{grid-row:2;padding:10px}
+ .rail-row{grid-template-columns:20px minmax(0,1fr) auto;min-height:28px;font-size:10px}
+ .planet-symbol{font-size:14px}.rail-row strong{font-size:11px}.rail-title span{font-size:9px}
+}
+@media(max-width:680px){
+ .chart-card.has-activations{padding:12px 8px}
+ .bodygraph-with-activations{grid-template-columns:1fr 1fr;gap:8px}
+ .bodygraph-center{grid-column:1/-1}
+ .activation-rail{padding:9px 7px}
+ .rail-title strong{font-size:13px}.rail-title span{font-size:9px}
+ .rail-row{grid-template-columns:18px minmax(0,1fr) auto;gap:4px;min-height:29px;font-size:9px}
+ .planet-name{font-size:9px}.rail-row strong{font-size:11px}
+ .quick-start{padding:16px 13px}
+ .quick-start .section-head{display:block}
+ .depth-switch{margin-top:13px;width:max-content}
+}
+@media(max-width:390px){
+ .planet-name{display:none}
+ .rail-row{grid-template-columns:20px 1fr}
+ .rail-row strong{text-align:right}
+}
