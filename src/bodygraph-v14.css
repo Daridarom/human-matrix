@@ -1,0 +1,17 @@
+/* Human Matrix 0.14 — bodygraph readability */
+.bodygraph.v14 svg{width:100%;max-width:470px;margin-inline:auto;max-height:none}
+.bodygraph.v14 .legend{flex-wrap:wrap;justify-content:center;gap:6px 14px}
+.legend-half{display:inline-block;width:18px!important;height:5px!important;border-radius:3px!important;background:linear-gradient(90deg,#263345 55%,#e6eaed 55%)!important}
+.bodygraph.v14 .map-hint{max-width:470px;margin-inline:auto}
+.bodygraph.v14 .map-target:focus-visible{outline:none}
+.bodygraph.v14 .map-target:focus-visible polygon,.bodygraph.v14 .map-target:focus-visible circle{stroke:#224f90;stroke-width:2.6}
+/* Planet rails sit beside the chart only when the card is wide enough; otherwise below it. */
+.chart-card.v08{container-type:inline-size}
+.chart-card.v08 .bodygraph-with-activations{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:10px}
+.chart-card.v08 .bodygraph-center{grid-column:1/-1;grid-row:1}
+.chart-card.v08 .activation-rail{grid-row:2}
+@container (min-width:700px){
+ .chart-card.v08 .bodygraph-with-activations{grid-template-columns:150px minmax(0,1fr) 150px;gap:14px}
+ .chart-card.v08 .bodygraph-center{grid-column:auto;grid-row:auto}
+ .chart-card.v08 .activation-rail{grid-row:auto}
+}
