@@ -1,6 +1,6 @@
 {
   "name": "human-matrix",
-  "version": "0.14.0",
+  "version": "0.14.1",
   "description": "Экспериментальный веб-интерфейс для исследования Human Design, совместимости, транзитов и практики наблюдений.",
   "main": "index.js",
   "dependencies": {
