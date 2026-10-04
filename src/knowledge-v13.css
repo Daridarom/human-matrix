@@ -1,0 +1,7 @@
+/* Human Matrix 0.13 */
+.core-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:12px 0}
+.core-card{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:14px 15px;min-width:0}
+.core-card h3{margin:2px 0 8px}
+.core-card p{margin:6px 0}
+.voices{margin:6px 0 4px;padding-left:18px;font-style:italic;color:#6b5a7c}
+@media(max-width:650px){.core-grid{grid-template-columns:minmax(0,1fr)}}
