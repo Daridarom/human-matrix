@@ -1,0 +1,13 @@
+/* Human Matrix 0.10 — book-based channel and gate reading */
+.knowledge-tag.plain{background:#f4f1fa;color:#5b4e78;border-color:#e2dbef}
+.plain-box{margin:10px 0 0;padding:11px 13px;border-radius:10px;background:#f8f7fb;border:1px solid #ebe7f3}
+.plain-box p{margin:7px 0 0}
+.channel-design{margin:4px 0 0;font-size:11px;color:var(--muted)}
+.book-source{margin:10px 0 0;font-size:9.5px;color:#8a98a3}
+.gate-iching{display:block;font-size:10.5px;color:var(--muted);margin:2px 0 4px}
+.gate-lines{margin:4px 0 0;font-size:11px;color:#755f3e}
+.gate-all-lines{margin:10px 0 0;font-size:11.5px}
+.gate-all-lines summary{cursor:pointer;color:var(--accent)}
+.gate-all-lines ol{margin:7px 0 0;padding-left:20px}
+.gate-all-lines li{margin:2px 0;color:#586a77}
+.gate-all-lines li.on{color:var(--ink);font-weight:700}
