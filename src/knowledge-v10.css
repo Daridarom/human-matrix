@@ -11,3 +11,8 @@
 .gate-all-lines ol{margin:7px 0 0;padding-left:20px}
 .gate-all-lines li{margin:2px 0;color:#586a77}
 .gate-all-lines li.on{color:var(--ink);font-weight:700}
+.deep-block{margin:10px 0 0}
+.deep-block h4{margin:10px 0 3px;font-size:11px;letter-spacing:.02em;text-transform:uppercase;color:var(--muted)}
+.deep-block p{margin:0}
+.practice-list{margin:0;padding-left:18px}
+.practice-list li{margin:2px 0}
