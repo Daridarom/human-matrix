@@ -16,3 +16,16 @@
 .deep-block p{margin:0}
 .practice-list{margin:0;padding-left:18px}
 .practice-list li{margin:2px 0}
+.gate-lines{margin:5px 0 0;display:grid;gap:4px}
+.gate-line-item{font-size:11.5px;color:#586a77;line-height:1.45}
+.gate-line-item b{color:#755f3e;font-weight:600}
+.line-deep{margin:0 0 10px;padding:0 8px 10px;border-bottom:1px solid var(--line);font-size:12px}
+.line-deep .line-context{border:0;padding:0;margin:2px 0 4px}
+.line-lesson{margin:6px 0;font-size:11.5px;color:#5b4e78}
+.poles{display:grid;gap:6px;margin:6px 0 0}
+.pole{padding:7px 9px;border-radius:8px;background:#f7f8f9;border-left:3px solid #cfd8de}
+.pole.up{border-left-color:#c9a36a}.pole.down{border-left-color:#8ea3b4}
+.pole p{margin:3px 0 0;font-size:11.5px}
+.pole-mark{font-size:10px;font-weight:700;color:var(--muted)}
+.gate-all-lines li details summary{cursor:pointer}
+.gate-all-lines li details p{font-weight:400;color:#586a77}

@@ -13,6 +13,9 @@
   for(const [k,b] of Object.entries(CHANNEL_BOOK)){HD_TEXT.channels[k]=b.plain;}
 
   const tag=(cls,t)=>`<span class="knowledge-tag ${cls}">${esc(t)}</span>`;
+  const LINES=window.HM_LINES||{};
+  const lineOf=(g,n)=>(LINES[g]||{})[n]||null;
+  function polesHtml(l){if(!l)return '';const row=(sym,cls,planet,text)=>text?`<div class="pole ${cls}"><span class="pole-mark">${sym}${planet?' '+esc(planet):''}</span><p>${esc(text)}</p></div>`:'';return `${l.lesson?`<p class="line-lesson"><strong>Урок линии:</strong> ${esc(l.lesson)}</p>`:''}<div class="poles">${row('▲','up',l.up_planet,l.up)}${row('▽','down',l.down_planet,l.down)}</div>`;}
   const src=p=>p?`<p class="book-source">Источник: ${esc(SOURCE)}, с. ${p}</p>`:'';
 
   const prevChannelCard=channelCard;
@@ -28,8 +31,8 @@
   gateReading=function(h,side){
     const gates=[...new Set(h.activations.filter(x=>x.side===side).map(x=>x.gate))];
     return gates.map(g=>{const b=GATE_BOOK[g],acts=h.activations.filter(x=>x.side===side&&x.gate===g);
-      const lines=acts.map(a=>`${g}.${a.line} — ${esc(b.lines[a.line-1])}`).join(' · ');
-      return `<div class="gate-row ${side==='design'?'design':''}"><button class="gate-number icon-btn" data-detail="gate:${g}" aria-label="Пояснение ворот ${g}">${g}</button><div><strong>${esc(b.name)}</strong><span class="gate-iching">${esc(b.iching)}</span><p>${esc(b.plain)}</p><p class="gate-lines">${lines}</p></div></div>`;}).join('');
+      const lines=acts.map(a=>{const l=lineOf(g,a.line);return `<span class="gate-line-item"><b>${g}.${a.line} — ${esc(b.lines[a.line-1])}.</b> ${l?esc(l.plain):''}</span>`}).join('');
+      return `<div class="gate-row ${side==='design'?'design':''}"><button class="gate-number icon-btn" data-detail="gate:${g}" aria-label="Пояснение ворот ${g}">${g}</button><div><strong>${esc(b.name)}</strong><span class="gate-iching">${esc(b.iching)}</span><p>${esc(b.plain)}</p><div class="gate-lines">${lines}</div></div></div>`;}).join('');
   };
 
   const prevDetail=detailHtml;
@@ -40,12 +43,12 @@
     const g=+key,b=GATE_BOOK[key],acts=h.activations.filter(x=>x.gate===g);
     const activeKeys=new Set(h.channels.map(ch=>ch.key));
     const center=HumanMatrixHD.GATE_CENTER[g];
-    const actHtml=acts.length?acts.map(a=>`<div class="activation-detail"><span class="side-dot ${a.side}"></span><span>${a.side==='personality'?'Личность':'Дизайн'} · ${esc(bodyNames[a.body]||a.body)}</span><strong>${a.gate}.${a.line}</strong></div><p class="line-context">${tag('hd','Линия '+a.line)}<span>${esc(b.lines[a.line-1])}</span></p>`).join(''):'<p class="supporting">В этой карте ворота не активированы.</p>';
+    const actHtml=acts.length?acts.map(a=>`<div class="activation-detail"><span class="side-dot ${a.side}"></span><span>${a.side==='personality'?'Личность':'Дизайн'} · ${esc(bodyNames[a.body]||a.body)}</span><strong>${a.gate}.${a.line}</strong></div><div class="line-deep"><p class="line-context">${tag('hd','Линия '+a.line)}<span>${esc(b.lines[a.line-1])}</span></p>${lineOf(g,a.line)?`<p>${esc(lineOf(g,a.line).plain)}</p>${polesHtml(lineOf(g,a.line))}`:''}</div>`).join(''):'<p class="supporting">В этой карте ворота не активированы.</p>';
     const links=HumanMatrixHD.CHANNELS.filter(ch=>ch.gates.includes(g)).map(ch=>{const on=activeKeys.has(ch.key);return `<span class="channel-chip ${on?'on':''}">${ch.gates.join('–')} · ${esc(ch.name)}${on?' · полный':''}</span>`}).join('');
-    const allLines=`<details class="gate-all-lines"><summary>Все шесть линий ворот ${g}</summary><ol>${b.lines.map((l,i)=>`<li${acts.some(a=>a.line===i+1)?' class="on"':''}>${esc(l)}</li>`).join('')}</ol></details>`;
-    return `<div class="eyebrow">Ворота ${g} · ${esc(HumanMatrixHD.CENTER_LABELS[center])}</div><h3>${esc(b.name)}</h3><p class="gate-iching">Гексаграмма: ${esc(b.iching)}</p><div class="knowledge-head">${tag('calc',acts.length?'Активированы':'Не активированы')}</div><div class="activation-detail-list">${actHtml}</div><div class="interpretive-box">${tag('hd','Классика Human Design')}<p>${esc(b.classic)}</p>${b.partner?`<p><strong>Связь с партнёром по каналу:</strong> ${esc(b.partner)}</p>`:''}${b.special?`<p><strong>Особенность:</strong> ${esc(b.special)}</p>`:''}</div><div class="plain-box">${tag('plain','Простыми словами')}<p>${esc(b.plain)}</p></div>${links?`<div class="channel-chip-list">${links}</div>`:''}${allLines}<div class="practice-line">${tag('practice','Для наблюдения')} <span>${esc(b.practice)}</span></div><p class="supporting">Ворота — часть целой карты. Не делайте вывод о человеке по одним воротам.</p>${src(b.page)}`;
+    const allLines=`<details class="gate-all-lines"><summary>Все шесть линий ворот ${g}</summary><p class="supporting">▲ и ▽ — две полярности одной темы (в книге — экзальтация и падение), а не «хорошо» и «плохо». Линию читают только вместе со всей картой.</p><ol>${b.lines.map((l,i)=>{const d=lineOf(g,i+1);return `<li${acts.some(a=>a.line===i+1)?' class="on"':''}><details><summary>${esc(l)}</summary>${d?`<p>${esc(d.plain)}</p>${polesHtml(d)}`:''}</details></li>`}).join('')}</ol></details>`;
+    return `<div class="eyebrow">Ворота ${g} · ${esc(HumanMatrixHD.CENTER_LABELS[center])}</div><h3>${esc(b.name)}</h3><p class="gate-iching">Гексаграмма: ${esc(b.iching)}</p><div class="knowledge-head">${tag('calc',acts.length?'Активированы':'Не активированы')}</div><div class="activation-detail-list">${actHtml}${acts.length?'<p class="supporting">▲ и ▽ — две полярности линии (в книге — экзальтация и падение), а не «хорошо» и «плохо». Узнайте себя в обеих.</p>':''}</div><div class="interpretive-box">${tag('hd','Классика Human Design')}<p>${esc(b.classic)}</p>${b.partner?`<p><strong>Связь с партнёром по каналу:</strong> ${esc(b.partner)}</p>`:''}${b.special?`<p><strong>Особенность:</strong> ${esc(b.special)}</p>`:''}</div><div class="plain-box">${tag('plain','Простыми словами')}<p>${esc(b.plain)}</p></div>${links?`<div class="channel-chip-list">${links}</div>`:''}${allLines}<div class="practice-line">${tag('practice','Для наблюдения')} <span>${esc(b.practice)}</span></div><p class="supporting">Ворота — часть целой карты. Не делайте вывод о человеке по одним воротам.</p>${src(b.page)}`;
   };
 
-  window.HumanMatrixBook={CHANNEL_BOOK,GATE_BOOK};
+  window.HumanMatrixBook={CHANNEL_BOOK,GATE_BOOK,LINES};
   renderContent();
 })();
