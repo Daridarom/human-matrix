@@ -15,3 +15,7 @@
  .chart-card.v08 .bodygraph-center{grid-column:auto;grid-row:auto}
  .chart-card.v08 .activation-rail{grid-row:auto}
 }
+.bodygraph.v14.has-focus g[data-channel]:not(.focus){opacity:.18}
+.bodygraph.v14.has-focus .channel-skeleton path:not(.focus){opacity:.45}
+.bodygraph.v14 g[data-channel]{transition:opacity .15s}
+.bodygraph.v14 .map-target.picked circle,.bodygraph.v14 .map-target.picked polygon{stroke:#224f90;stroke-width:2.6}

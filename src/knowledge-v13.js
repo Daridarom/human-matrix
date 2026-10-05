@@ -19,8 +19,8 @@ window.HM_CORE_BOOK={"centers": {"head": {"kind": "Центр давления",
     return `<div class="knowledge-head">${tag('calc',status)}</div>
       <p><strong>${esc(d.kind)} · ${esc(d.theme)}.</strong></p>
       <div class="mechanics-mini"><div><span>Активные ворота</span><strong>${gates.length?gates.join(', '):'нет'}</strong></div><div><span>Полные каналы</span><strong>${channels.length?channels.map(x=>x.gates.join('–')).join(', '):'нет'}</strong></div></div>
-      <div class="interpretive-box">${tag('hd','Функция центра')}<p>${esc(d.function)}</p></div>
-      <div class="interpretive-box">${tag('hd',defined?'Когда центр определён':'Когда центр открыт')}<p>${esc(defined?d.defined:d.open)}</p></div>
+      <div class="interpretive-box">${tag('hd','Что делает этот центр')}<p>${esc(d.function)}</p></div>
+      <div class="interpretive-box">${tag('hd',defined?'Когда центр определён':'Когда центр открыт')}<p>${esc(defined?d.defined:d.open)}</p></div>${d.detail?`<details class="center-detail"><summary>Подробнее о механике центра</summary><p>${esc(d.detail)}</p></details>`:''}
       ${openPart}
       <div class="plain-box">${tag('plain','Простыми словами')}<p>${esc(defined?d.plain_defined:d.plain_open)}</p></div>
       <div class="practice-line">${tag('practice','Для наблюдения')}<ul class="practice-list">${list(d.practice)}</ul></div>`;

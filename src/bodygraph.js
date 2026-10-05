@@ -12,7 +12,7 @@ const GRAPH = {
   head:{shape:'220,14 178,90 262,90',color:'#ecd782'},
   ajna:{shape:'178,120 262,120 220,202',color:'#90b6a1'},
   throat:{shape:'180,232 260,232 260,312 180,312',color:'#c9a785'},
-  g:{shape:'220,330 276,386 220,442 164,386',color:'#e8d17a'},
+  g:{shape:'220,328 250,386 220,444 190,386',color:'#e8d17a'},
   heart:{shape:'306,352 284,414 332,414',color:'#d9898b'},
   sacral:{shape:'180,480 260,480 260,560 180,560',color:'#d9898b'},
   spleen:{shape:'28,438 28,562 128,500',color:'#c5af8f'},
@@ -23,7 +23,7 @@ const GRAPH = {
   64:[197,90],61:[220,90],63:[243,90],
   47:[197,120],24:[220,120],4:[243,120],17:[197,154],11:[243,154],43:[220,190],
   62:[197,232],23:[220,232],56:[243,232],16:[180,251],20:[180,276],35:[260,251],12:[260,271],45:[260,293],31:[198,312],8:[220,312],33:[242,312],
-  1:[220,334],7:[203,353],13:[237,353],10:[168,386],25:[270,386],15:[203,419],46:[237,419],2:[220,438],
+  1:[220,334],7:[208,351],13:[232,351],10:[194,386],25:[246,386],15:[208,421],46:[232,421],2:[220,438],
   21:[306,369],51:[292,392],26:[297,414],40:[321,414],
   48:[34,442],57:[55,454],44:[85,473],50:[109,488],32:[106,513],28:[82,528],18:[57,544],
   36:[406,442],22:[385,454],37:[355,473],6:[331,488],49:[334,513],55:[358,528],30:[383,544],
@@ -33,7 +33,7 @@ const GRAPH = {
 };
 /* Intermediate points for the only two bent channels. */
 const CHANNEL_ROUTES = {
- '20-34':[[146,300],[146,476]],
+ '20-34':[[166,300],[166,482]],
  '26-44':[[240,456]]
 };
 let graphSequence=0;
@@ -66,12 +66,14 @@ function bodygraph(hd,{other=null,names=['Личность','Дизайн'],id='
  const ink=g=>a.has(g)&&b.has(g)?`url(#${uid}-both)`:a.has(g)?colorA:b.has(g)?colorB:'#e2e7ea';
  const defined=new Set(merged.definedCenters);
  const off=[],on=[];
+ const focusGate=selection&&selection.startsWith('gate:')?+selection.slice(5):null,focusCenter=selection&&selection.startsWith('center:')?selection.slice(7):null;
+ const inFocus=ch=>focusGate!==null?ch.gates.includes(focusGate):focusCenter?ch.centers.includes(focusCenter):false;
  for(const ch of HumanMatrixHD.CHANNELS){
   const halves=splitAtMiddle(channelPoints(ch));
   const gateOn=ch.gates.map(g=>a.has(g)||b.has(g)),full=gateOn[0]&&gateOn[1];
-  const cls=full?'channel-full':gateOn[0]||gateOn[1]?'channel-half':'channel-off';
+  const cls=(full?'channel-full':gateOn[0]||gateOn[1]?'channel-half':'channel-off')+(inFocus(ch)?' focus':'');
   // quiet skeleton for every channel
-  off.push(`<path d="${pathD(channelPoints(ch))}" fill="none" stroke="#e6eaed" stroke-width="4.2" stroke-linecap="round" stroke-linejoin="round"/>`);
+  off.push(`<path data-key="${ch.key}" class="${inFocus(ch)?'focus':''}" d="${pathD(channelPoints(ch))}" fill="none" stroke="${inFocus(ch)?'#9fb3c4':'#e6eaed'}" stroke-width="${inFocus(ch)?5:4.2}" stroke-linecap="round" stroke-linejoin="round"/>`);
   if(!gateOn[0]&&!gateOn[1])continue;
   const w=full?7:5.2;
   const segs=halves.map((pts,i)=>gateOn[i]?`<path d="${pathD(pts)}" fill="none" stroke="#fff" stroke-width="${w+3.4}" stroke-linecap="round" stroke-linejoin="round"/><path d="${pathD(pts)}" fill="none" stroke="${ink(ch.gates[i])}" stroke-width="${w}" stroke-linecap="${full?'butt':'round'}" stroke-linejoin="round"/>`:'').join('');
@@ -85,5 +87,5 @@ function bodygraph(hd,{other=null,names=['Личность','Дизайн'],id='
  }).join('');
  const gates=Object.entries(GRAPH.gates).map(([g,[x,y]])=>{const isOn=a.has(+g)||b.has(+g);return `<g class="map-target" role="button" tabindex="0" data-detail="gate:${g}" aria-label="Ворота ${g}: ${esc(HD_TEXT.gates[g][0])}"><title>${g} · ${esc(HD_TEXT.gates[g][0])}${isOn?' — активированы':''}</title><circle cx="${x}" cy="${y}" r="${selection==='gate:'+g?10.4:8.4}" fill="${isOn?ink(+g):'#fff'}" stroke="${selection==='gate:'+g?'#224f90':isOn?'#fff':'#aeb8c0'}" stroke-width="${selection==='gate:'+g?2.2:isOn?1.5:1}"/><text x="${x}" y="${y+3.6}" fill="${isOn?'#fff':'#55646f'}" font-size="9.6" font-family="system-ui,sans-serif" text-anchor="middle" font-weight="700">${g}</text></g>`}).join('');
  const legend=`<div class="legend"><span><i style="background:${colorA}"></i>${esc(names[0])}</span><span><i style="background:${colorB}"></i>${esc(names[1])}</span><span><i class="mixed" style="--one:${colorA};--two:${colorB}"></i>Оба слоя</span><span><i class="legend-half"></i>Половина канала</span></div>`;
- return `<div class="bodygraph geometric v14" id="${id}"><svg viewBox="18 6 404 684" role="group" aria-label="Бодиграф: девять центров, 64 ворот и 36 каналов"><defs><pattern id="${uid}-both" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(35)"><rect width="6" height="6" fill="${colorA}"/><rect width="3" height="6" fill="${colorB}"/></pattern></defs>${lines}${centers}${gates}</svg>${legend}<p class="map-hint">Толстая линия от центра до центра — полный канал. Линия до середины — только одни ворота канала. Нажмите на центр или номер ворот, чтобы открыть пояснение.</p></div>`;
+ return `<div class="bodygraph geometric v14${focusGate!==null||focusCenter?' has-focus':''}" id="${id}"><svg viewBox="18 6 404 684" role="group" aria-label="Бодиграф: девять центров, 64 ворот и 36 каналов"><defs><pattern id="${uid}-both" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(35)"><rect width="6" height="6" fill="${colorA}"/><rect width="3" height="6" fill="${colorB}"/></pattern></defs>${lines}${centers}${gates}</svg>${legend}<p class="map-hint">Толстая линия от центра до центра — полный канал. Линия до середины — только одни ворота канала. Нажмите на центр или номер ворот, чтобы открыть пояснение.</p></div>`;
 }
