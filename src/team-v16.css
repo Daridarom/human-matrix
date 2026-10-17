@@ -1,0 +1,11 @@
+.team-intro p{margin:0}
+.team-role h3{margin-top:4px}
+.team-example{background:var(--soft,#f4f3ee);border-radius:8px;padding:10px 12px;font-style:italic}
+.team-example span{font-style:normal;font-weight:600}
+.team-center .eyebrow{font-weight:600}
+.team-center-none{border-left:4px solid #d9a441}
+.team-center-some{border-left:4px solid #7a9a7e}
+.team-center-all{border-left:4px solid #4d6fa8}
+.team-link strong{display:block}
+.team-table td:nth-child(2){white-space:nowrap}
+@media (max-width:720px){.team-table{font-size:13px}}
