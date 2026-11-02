@@ -15,7 +15,7 @@
 .hm17-step>summary:focus-visible,.hm17-channel>summary:focus-visible{outline:2px solid #397d75;outline-offset:3px;border-radius:6px}
 .hm17-step>summary:hover{color:#277268}
 .hm17-number{background:#e6f1ed;color:#30685d;font-weight:760;display:inline-flex;align-items:center;justify-content:center;min-width:34px;height:34px;border-radius:11px}
-.hm17-step[open]>.hm17-step>summary{color:#13443f}
+.hm17-step[open]>summary{color:#13443f}
 .hm17-arrow{margin-left:auto;color:#7f9a92;font-size:1.35rem;transition:transform .15s}
 .hm17-step[open] .hm17-arrow{transform:rotate(180deg)}
 .hm17-body{padding:0 6px 20px 46px;max-width:84ch;line-height:1.7;color:#354a48;font-size:.96rem}
@@ -61,3 +61,11 @@
 .hm17-rel>.hm17-step{margin:0 15px}
 .hm17-rel>.hm17-note{margin:14px 15px 16px}
 }
+
+.hm17-learning-steps{display:grid;gap:10px;padding:20px 26px}
+.hm17-learning-steps>div{display:flex;flex-direction:column;gap:5px;border-left:3px solid #9bbeb1;padding:8px 14px;background:#f8fbf9;border-radius:0 10px 10px 0}
+.hm17-learning-steps strong{color:#254b42;font-size:.92rem}
+.hm17-learning-steps span{color:#526c63;line-height:1.55;font-size:.9rem}
+.hm17-rel>.hm17-step{padding-left:0;padding-right:0}
+.hm17-footer a{color:#286d62;text-decoration:underline;text-underline-offset:3px}
+@media(max-width:640px){.hm17-learning-steps{padding:15px}.hm17-learning-steps>div{padding:9px 12px}}
