@@ -82,6 +82,26 @@ const prefix=`<section class="hm17-guide hm17-rel" id="hm17-team"><div class="hm
 html=html.replace('<div class="paper table-scroll">',prefix+'<div class="paper table-scroll">');
 return html.replace('Сильные и слабые места группы','Темы для обсуждения в группе');
 };
+
+const originalSystems=systemsView;
+systemsView=function(){
+  let html=originalSystems();
+  const learning='<section class="hm17-guide hm17-rel" id="hm17-learning">'+
+  '<div class="hm17-intro"><span class="hm17-eyebrow">Понятно каждому · Как устроена система</span><h2>От даты рождения до подробной карты</h2>'+
+  '<p>Чтобы понимать глубину Дизайна человека, различайте устройство расчёта и его трактовку. Начните с того, что действительно вычисляется, затем изучайте значения элементов.</p></div>'+
+  '<div class="hm17-learning-steps">'+
+  '<div><strong>1. Исходные данные</strong><span>Дата, время и часовой пояс рождения. Точность времени влияет на некоторые результаты.</span></div>'+
+  '<div><strong>2. Положения планет</strong><span>Алгоритм переводит положения в символические активации ворот и линий. Это вычисление, а не доказательство влияния планет на характер.</span></div>'+
+  '<div><strong>3. Ворота → каналы → центры</strong><span>64 ворот, 36 возможных каналов и 9 центров составляют схему. Если активны оба конца канала, его связь и центры считаются определёнными.</span></div>'+
+  '<div><strong>4. Тип, стратегия и авторитет</strong><span>На основе конфигурации схема присваивает тип и авторитет. Стратегия — правило внутри традиции, а не обязанность человека.</span></div>'+
+  '<div><strong>5. Профиль, линии и глубокие трактовки</strong><span>Следующий уровень — сочетания линий, контуры, активации планет и жизненные темы. Одно значение не читают в отрыве от всей карты.</span></div>'+
+  '<div><strong>6. Проверка на собственной жизни</strong><span>Что действительно узнаётся? Что не совпадает? Какие другие объяснения возможны? Никакая трактовка не отменяет реального опыта.</span></div></div>'+
+  '<details class="hm17-step"><summary><span class="hm17-number">?</span><span>Чем отличаются чёрные и красные линии?</span><span class="hm17-arrow">⌄</span></summary><div class="hm17-body"><p><strong>Чёрное</strong> — слой Личности, связанный в системе с моментом рождения и осознаваемыми темами. <strong>Красное</strong> — слой Дизайна, рассчитанный примерно за 88 солнечных градусов до рождения, который традиция называет бессознательным. Эти цвета не являются психологическим обследованием.</p></div></details>'+
+  '<details class="hm17-step"><summary><span class="hm17-number">?</span><span>Что означает запись «21.3»?</span><span class="hm17-arrow">⌄</span></summary><div class="hm17-body"><p>21 — номер ворот из 64, 3 — номер линии из шести внутри этих ворот. Значение уточняется планетой, слоем карты и связанными каналами.</p></div></details>'+
+  '<details class="hm17-step"><summary><span class="hm17-number">?</span><span>Можно ли по карте выбрать профессию или партнёра?</span><span class="hm17-arrow">⌄</span></summary><div class="hm17-body"><p>Надёжного научного основания для таких решений на базе Human Design нет. Для работы важны навыки, опыт и результаты; для отношений — поведение, безопасность, уважение и согласие.</p></div></details>'+
+  '<div class="hm17-footer"><strong>Источники для самостоятельного изучения:</strong> <a href="https://jovianarchive.com/pages/beginner" target="_blank" rel="noopener noreferrer">Jovian Archive</a> · <a href="https://daniiltrofimov.com/living" target="_blank" rel="noopener noreferrer">Даниил Трофимов</a> · <a href="https://genekeys.com/books/" target="_blank" rel="noopener noreferrer">Ричард Радд</a> · <a href="https://help.mybodygraph.com/en/articles/16276543-do-i-need-prior-human-design-knowledge-to-benefit-from-these-analyses" target="_blank" rel="noopener noreferrer">myBodyGraph</a>. Это источники традиции и примеры обучения, а не научная валидация модели.</div></section>';
+  return html.replace('<div class="read-grid">',learning+'<div class="read-grid">');
+};
 window.HM_GUIDE_VERSION='0.17.0';
 renderContent();
 })();
