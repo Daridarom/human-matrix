@@ -1,0 +1,43 @@
+
+/* Editorial revision 0.18 — readable first, classical mechanics on demand */
+.hm18-history{margin:18px 0 30px;border:1px solid #d7e4df;border-radius:20px;overflow:hidden;background:#fff;box-shadow:0 7px 25px rgba(24,56,46,.05)}
+.hm18-history-head{padding:28px 29px 24px;background:linear-gradient(122deg,#edf7f1,#fafcfb)}
+.hm18-history-head>span{display:block;color:#477a67;font-size:.79rem;font-weight:780;letter-spacing:.07em;text-transform:uppercase;margin-bottom:10px}
+.hm18-history-head h2{color:#193d35;letter-spacing:-.026em;line-height:1.2;font-size:clamp(1.45rem,3vw,2.05rem);margin:0 0 13px}
+.hm18-history-head p{max-width:78ch;color:#3f5d53;line-height:1.73;margin:0 0 11px}
+.hm18-history-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:15px;padding:22px}
+.hm18-history-grid article{border:1px solid #e1eae6;border-radius:13px;background:#fcfefd;padding:19px;min-width:0}
+.hm18-history-grid h3{font-size:1.12rem;line-height:1.3;color:#28584c;margin:0 0 11px}
+.hm18-history-grid p{margin:0 0 10px;line-height:1.68;color:#48635a;font-size:.94rem}
+.hm18-ethics{margin:5px 22px 22px;padding:16px 18px;border-radius:11px;background:#f5f7f5;color:#586b64;line-height:1.65;font-size:.89rem}
+.hm18-history-detail{margin:0 22px 16px}
+.hm18-first{margin:12px 0;padding:12px 15px;background:#f1f7f4;border-radius:12px;border-left:3px solid #9bbcaa}
+.hm18-first strong{color:#255e50;font-size:.88rem}
+.hm18-first p{font-size:.96rem;line-height:1.65;margin:6px 0 0}
+.hm18-reading{overflow:hidden}
+.hm18-reading .hm18-deep .reading-card{box-shadow:none;border:0;padding:0;background:transparent;margin:0}
+.hm18-deep{margin:12px 0;border:1px solid #dfebe5;border-radius:11px;overflow:hidden;background:#fcfefd}
+.hm18-deep>summary{padding:13px 15px;cursor:pointer;color:#2e6f59;font-size:.9rem;font-weight:700;list-style:none}
+.hm18-deep>summary::-webkit-details-marker{display:none}
+.hm18-deep>summary::after{content:'⌄';float:right;font-size:1.1rem}
+.hm18-deep[open]>summary::after{transform:rotate(180deg)}
+.hm18-deep:focus-within{border-color:#7dae97}
+.hm18-inside{padding:15px;border-top:1px solid #e5eee9;line-height:1.7;overflow-wrap:anywhere}
+.hm18-inside>p{margin:0 0 12px}
+.hm18-inside a{color:#2c755f;text-decoration:underline;text-underline-offset:3px}
+.hm18-gate-example{margin-top:9px!important;color:#49645a;font-size:.9rem}
+.hm18-gate-example strong{color:#2d5d4d}
+.hm18-center .hm18-first{margin-bottom:12px}
+.hm18-center>p{line-height:1.7}
+@media(max-width:700px){
+.hm18-history{border-radius:15px}
+.hm18-history-head{padding:21px 18px}
+.hm18-history-head h2{font-size:1.5rem}
+.hm18-history-head p{font-size:.93rem}
+.hm18-history-grid{grid-template-columns:1fr;padding:14px;gap:10px}
+.hm18-history-grid article{padding:15px}
+.hm18-history-detail{margin:0 14px 14px}
+.hm18-ethics{margin:0 14px 16px;font-size:.85rem}
+.hm18-first p{font-size:.9rem}
+.hm18-inside{padding:12px}
+}
