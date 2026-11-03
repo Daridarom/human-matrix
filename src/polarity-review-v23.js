@@ -26,5 +26,17 @@
   const read=Object.values(lines).reduce((sum,g)=>sum+Object.values(g).reduce((n,line)=>n+Number(!!line.reader_up)+Number(!!line.reader_down),0),0);
   if(read!==revised||read!==192)throw new Error('Coverage conflict: '+read+' vs '+revised);
   window.HM_POLARITY_REVIEW={version:'0.23.0',gates:16,lines:96,revised:read,total,pending:total-read,skipped_missing:missingOriginal};
+  const olderDetail=detailHtml;
+  detailHtml=function(h,defaultTitle){
+    const html=olderDetail(h,defaultTitle);
+    const gate=state.detail?.match(/^gate:(\d+)$/)?.[1];
+    if(!gate||!lines[gate])return html;
+    const gateLines=Object.values(lines[gate]);
+    const count=gateLines.reduce((n,l)=>n+Number(!!l.reader_up)+Number(!!l.reader_down),0);
+    const possible=gateLines.reduce((n,l)=>n+Number(!!l.up)+Number(!!l.down),0);
+    const intro=`<aside class="hm23-help"><p><strong>Как понимать ▲ и ▽?</strong> Это две стороны одной символической темы в классической традиции, а не «хороший» и «плохой» человек. Знак совпадения планеты — часть правил этой системы, не доказательство поведения.</p><p><strong>Проверено редакцией:</strong> ${count} из ${possible} текстов полярностей этих ворот. ${count===possible?'Сначала показана новая понятная редакция, первоисточник можно раскрыть.':'Непереработанные классические описания обозначены отдельно.'}</p></aside>`;
+    return html.replace('<div class="activation-detail-list">',intro+'<div class="activation-detail-list">');
+  };
+
   renderContent();
 })();
