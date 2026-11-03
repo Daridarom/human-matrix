@@ -22,6 +22,8 @@ const q=(text)=>`<p class="hm17-question"><strong>Вопрос для себя:<
 const link=(id,label)=>`<a class="hm17-link" href="#${id}">${label} ↓</a>`;
 const tip=(title,body)=>`<p><strong>${title}</strong> ${E(body)}</p>`;
 function personalGuide(h){
+const richerType=window.HM_CONTENT_V19?.types?.[h.type];
+const richerAuthority=window.HM_CONTENT_V19?.authorities?.[h.authority];
 const type=TYPES[h.type]||{title:'Ваш тип — '+typeName(h),what:HD_TEXT.types[h.type]?.[2]||'',scene:'Вспомните реальный случай, когда вы включались в новое дело.',try:'Сравните подсказки системы с собственными решениями.',watch:'Наблюдайте, что совпадает, а что нет.'};
 const auth=AUTHS[h.authority]||HD_TEXT.authority[h.authority]?.[1]||'Для этой темы посмотрите развёрнутую трактовку ниже.';
 const authLabel=authorityName(h);
@@ -31,16 +33,17 @@ const books=window.HumanMatrixBook?.CHANNEL_BOOK||{};
 const lineIds=String(h.profile||'').split('/').map(Number);
 const la=HD_TEXT.lines[lineIds[0]],lb=HD_TEXT.lines[lineIds[1]];
 const MECHANICS={Manifestor:'Сакральный центр не определён, а один из моторных центров связан с Горловым. Это способ классификации схемы, а не физиологический тест.',Generator:'Сакральный центр определён, но нет конфигурации проявления через Горло, характерной для манифестирующего генератора.','Manifesting Generator':'Сакральный центр определён и соединён с Горлом по правилам системы.','Projector':'Сакральный центр не определён, при этом отсутствует связь мотора с Горлом, которая в системе определяет Манифестора.',Reflector:'В карте нет определённых центров, то есть нет полных каналов.'};
-const typeHtml=`<h3>${E(type.title)}</h3>${tip('Что это означает в системе.',type.what)}${tip('Пример из жизни.',type.scene)}${tip('Что попробовать.',type.try)}${q(type.watch)}<details class="hm17-channel"><summary><strong>Как определяется этот тип на схеме?</strong><span>Углубиться</span></summary><div class="hm17-channel-body"><p>${E(MECHANICS[h.type]||'Тип выводится из конфигурации центров и каналов.')}</p></div></details><p class="hm17-note">Тип не определяет профессию, характер и ценность человека.</p>`;
+const typeHtml=`<h3>${E(type.title)}</h3>${tip('Что это означает в системе.',richerType?.title||type.what)}${tip('Пример из жизни.',richerType?.scene||type.scene)}${tip('Что попробовать.',type.try)}${q(richerType?.question||type.watch)}<details class="hm17-channel"><summary><strong>Как определяется этот тип на схеме?</strong><span>Углубиться</span></summary><div class="hm17-channel-body"><p>${E(MECHANICS[h.type]||'Тип выводится из конфигурации центров и каналов.')}</p></div></details><p class="hm17-note">Тип не определяет профессию, характер и ценность человека.</p>`;
 const strategyHtml=`<h3>Как взаимодействовать с событиями и людьми</h3><p><strong>Стратегия вашей карты:</strong> ${E(h.strategy||'смотрите подробное описание типа')}.</p>${tip('Смысл на практике.',HD_TEXT.types[h.type]?.[3]||type.try)}<p><strong>Пример.</strong> ${E(type.scene)}</p>${q('В каких случаях такое поведение помогало, а в каких нет?')}`;
-const authorityHtml=`<h3>Как в системе описано принятие решений</h3><p><strong>Ваш авторитет:</strong> ${E(authLabel)}.</p><p>${E(auth)}</p>${q('Какие мои реальные решения подтверждают эту трактовку, а какие ей противоречат?')}<p class="hm17-note">Не заменяйте этим медицинские, юридические, финансовые и другие ответственные проверки.</p>`;
+const authorityHtml=`<h3>Как в системе описано принятие решений</h3><p><strong>Ваш авторитет:</strong> ${E(authLabel)}.</p><p>${E(richerAuthority?.explanation||auth)}</p>${richerAuthority?.scene?`<p><strong>Пример действия.</strong> ${E(richerAuthority.scene)}</p>`:''}${q(richerAuthority?.question||'Какие мои реальные решения подтверждают эту трактовку, а какие ей противоречат?')}<p class="hm17-note">Не заменяйте этим медицинские, юридические, финансовые и другие ответственные проверки.</p>`;
 const channelCards=channels.length?channels.map((ch,i)=>{
 const b=books[ch.key]||{};
 const n=b.name||('Канал '+ch.key);
 const gateNames=(ch.gates||[]).map(id=>`${id} — ${HD_TEXT.gates[id]?.[0]||'ворота'}`).join(' + ');
-const plain=b.plain||HD_TEXT.channels[ch.key]||'Это связь двух ворот, которая объединяет две темы карты.';
+const note=window.HM_CONTENT_V19?.channelNotes?.[ch.key];
+const plain=note?.[0]||b.plain||HD_TEXT.channels[ch.key]||'Это связь двух ворот, которая объединяет две темы карты.';
 const practice=Array.isArray(b.practice)?b.practice[0]:b.practice;
-return `<details class="hm17-channel"><summary><strong>${E(ch.key)} · ${E(n)}</strong><span>Раскрыть смысл</span></summary><div class="hm17-channel-body"><p><strong>Из чего состоит:</strong> ${E(gateNames)}.</p><p><strong>Простыми словами:</strong> ${E(plain)}</p>${practice?q(practice):''}<p class="hm17-note">Это тема канала в трактовке системы, а не установленная черта личности.</p></div></details>`;
+return `<details class="hm17-channel"><summary><strong>${E(ch.key)} · ${E(n)}</strong><span>Раскрыть смысл</span></summary><div class="hm17-channel-body"><p><strong>Из чего состоит:</strong> ${E(gateNames)}.</p><p><strong>Простыми словами:</strong> ${E(plain)}</p>${note?.[1]?`<p><strong>Важно:</strong> ${E(note[1])}</p>`:''}${practice?q(practice):''}<p class="hm17-note">Это тема канала в трактовке системы, а не установленная черта личности.</p></div></details>`;
 }).join(''):'<p>В этой карте нет полных каналов. В терминологии системы это характерно для Рефлектора.</p>';
 const channelsHtml=`<h3>Каналы — связи, которые действительно есть в вашей карте</h3><p>Канал соединяет двое ворот и два центра. Когда в карте активны оба его конца, он считается определённым. Каналы помогают перейти от общего типа к конкретной конфигурации вашей карты.</p><p><strong>У вас ${channels.length} ${channels.length===1?'полный канал':channels.length>=2&&channels.length<=4?'полных канала':'полных каналов'}.</strong> Ни один канал нельзя назвать «главным» только потому, что он показан первым.</p>${channelCards}${link('channels','Все каналы и классические подробности')}`;
 const defined=h.definedCenters||[];
