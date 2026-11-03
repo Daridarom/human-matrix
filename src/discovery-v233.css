@@ -1,0 +1,12 @@
+/* Human Matrix 0.23.3 — clear, always-visible entry to the history section */
+.topbar .origin-link{display:flex;align-items:center;gap:10px;min-height:48px;max-width:410px;padding:7px 13px;border:1px solid #c7dfd3;border-radius:13px;background:#e9f5ee;color:#174c38;transition:background .2s,border-color .2s}
+.topbar .origin-link:hover{background:#daf0e1;border-color:#9abfac}
+.topbar .origin-link:focus-visible{outline:3px solid #5a9678;outline-offset:3px}
+.origin-link-icon{font-size:21px;line-height:1;flex:none}
+.origin-link-text{display:flex;flex-direction:column;line-height:1.35;min-width:0}
+.origin-link-text strong{font-size:14px;font-weight:750;color:#20533f}
+.origin-link-text small{font-size:11px;color:#507563;margin-top:3px}
+.origin-link-arrow{font-size:20px;line-height:1;font-weight:500;margin-left:3px}
+@media (max-width:1020px){.topbar .origin-link{margin-left:auto}.topbar .edition{display:none}}
+@media (max-width:590px){.topbar .origin-link{order:3;flex:1 0 100%;width:100%;max-width:none;justify-content:center;text-align:left;margin:2px 0 0;padding:10px 12px;min-height:51px}.topbar .origin-link strong{font-size:14px}.topbar .origin-link small{font-size:11px}.topbar .origin-link-arrow{margin-left:auto}.topbar .brand{order:1}.topbar .edition{display:block;order:2;margin-left:auto}}
+@media (max-width:360px){.topbar .edition{display:none}.topbar .origin-link{justify-content:flex-start}.origin-link-text strong{font-size:13px}}
