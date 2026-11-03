@@ -8,7 +8,7 @@
   for(const [gate,items] of Object.entries(data)){
     if(!/^(?:[1-9]|[1-5][0-9]|6[0-4])$/.test(gate))throw new Error('Invalid reviewed gate '+gate);
     for(const [line,pair] of Object.entries(items)){
-      const item=lines[gate]?.[line];
+      const item=lines[gate]?.[Array.isArray(items)?Number(line)+1:line];
       if(!item||!Array.isArray(pair)||pair.length!==2)throw new Error('Missing reviewed line '+gate+'.'+line);
       for(const [i,field] of ['up','down'].entries()){
         if(!item[field]){missingOriginal++;if(pair[i])throw new Error('Editorial text exists without source for '+gate+'.'+line+' '+field);continue;}
