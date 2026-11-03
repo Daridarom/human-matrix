@@ -1,0 +1,21 @@
+/* Human Matrix 0.22 — planets and Incarnation Cross in plain language */
+.hm22-cross-explain{padding:20px 22px;border:1px solid #dfe9e4;border-radius:15px;background:#f8fbf9;margin:18px 0 22px}
+.hm22-cross-explain h3{font-size:1.15rem;line-height:1.35;margin:0 0 11px;color:#245641}
+.hm22-cross-explain>p{font-size:.93rem;line-height:1.7;color:#455f53}
+.hm22-four{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:15px 0}
+.hm22-four article{border:1px solid #e1ebe5;border-radius:11px;background:#fff;padding:12px 14px}
+.hm22-four article strong{font-size:.87rem;color:#2b5947}
+.hm22-four article p{font-size:.88rem;color:#536d60;line-height:1.6;margin:7px 0 0}
+.hm22-angle{font-size:.88rem;font-weight:600;color:#3b644f}
+.hm22-planet{padding:7px 3px 10px;line-height:1.7}
+.hm22-planet>p{font-size:.9rem;line-height:1.7;margin:5px 0 10px;color:#415b50}
+.hm22-planet>p strong{color:#256246}
+.hm22-archive{background:#f7faf8;border:1px solid #deebe3;border-radius:10px;margin-top:12px;overflow:hidden}
+.hm22-archive>summary{color:#316d52;cursor:pointer;padding:10px 13px;list-style:none;font-size:.88rem;font-weight:650}
+.hm22-archive>summary::-webkit-details-marker{display:none}
+.hm22-archive>summary::before{content:'+';padding-right:8px;font-weight:800}
+.hm22-archive[open]>summary::before{content:'−'}
+.hm22-archive>p,.hm22-archive>.interpretive-box,.hm22-archive>.deep-block{padding:0 14px 11px;margin:0;font-size:.9rem;line-height:1.7}
+.hm22-cross-archive{margin:16px 0}
+.hm22-cross-archive>.interpretive-box,.hm22-cross-archive>.deep-block{padding:12px 14px;margin:0;background:transparent}
+@media(max-width:640px){.hm22-four{grid-template-columns:1fr}.hm22-cross-explain{padding:14px 13px}.hm22-four article{padding:10px 12px}}
