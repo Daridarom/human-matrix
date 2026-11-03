@@ -1,6 +1,6 @@
 {
   "name": "human-matrix",
-  "version": "0.19.0",
+  "version": "0.20.0",
   "description": "Экспериментальный веб-интерфейс для исследования Human Design, совместимости, транзитов и практики наблюдений.",
   "main": "index.js",
   "dependencies": {
@@ -9,7 +9,7 @@
   },
   "scripts": {
     "build": "esbuild src/hd-core.js --bundle --platform=browser --format=iife --outfile=dist/hd-core.js --minify",
-    "test": "node tests/engine-smoke.mjs && node tests/core-smoke.mjs && node tests/reference-regression.mjs && node tests/ui-regression.mjs && node tests/places-regression.mjs && node --check src/app.js && node --check src/knowledge-v09.js && node --check src/knowledge-v10.js && node --check src/lines-book.js && node --check src/knowledge-v13.js && node --check src/knowledge-v14.js && node --check src/team-v16.js && node --check src/guide-v17.js && node --check src/editorial-v18.js && node --check src/editorial-v19.js"
+    "test": "node tests/engine-smoke.mjs && node tests/core-smoke.mjs && node tests/reference-regression.mjs && node tests/ui-regression.mjs && node tests/places-regression.mjs && node --check src/app.js && node --check src/knowledge-v09.js && node --check src/knowledge-v10.js && node --check src/lines-book.js && node --check src/knowledge-v13.js && node --check src/knowledge-v14.js && node --check src/team-v16.js && node --check src/guide-v17.js && node --check src/editorial-v18.js && node --check src/editorial-v19.js && node --check src/gates-v20.js"
   },
   "repository": {
     "type": "git",
