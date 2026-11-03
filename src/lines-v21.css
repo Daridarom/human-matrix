@@ -4,3 +4,10 @@
 .hm18-line-guide li.hm18-line-active{background:#eaf6ee;border-color:#68a58b;box-shadow:0 2px 9px rgba(25,80,55,.06)}
 .hm18-line-guide li.hm18-line-active>strong{color:#16583e}
 @media(max-width:640px){.hm21-line-scene{font-size:.84rem;padding:9px 10px}}
+
+.hm21-previous{margin:12px 0 2px;border-top:1px solid #e1ece4;padding-top:10px;font-size:.83rem;color:#6a7b71}
+.hm21-previous>summary{cursor:pointer;font-weight:680;color:#416c58;list-style:none}
+.hm21-previous>summary::-webkit-details-marker{display:none}
+.hm21-previous>summary::before{content:'+';padding-right:7px;font-weight:800}
+.hm21-previous[open]>summary::before{content:'−'}
+.hm21-previous p{line-height:1.65;margin:8px 0 2px}
