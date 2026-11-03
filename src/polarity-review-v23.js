@@ -22,8 +22,9 @@
   }
   const total=Object.values(lines).reduce((sum,g)=>sum+Object.values(g).reduce((n,line)=>n+Number(!!line.up)+Number(!!line.down),0),0);
   if(total!==760)throw new Error('Original reference set changed: '+total);
+  if(Object.keys(data).length!==16)throw new Error('Expected 16 individually reviewed gates');
   const read=Object.values(lines).reduce((sum,g)=>sum+Object.values(g).reduce((n,line)=>n+Number(!!line.reader_up)+Number(!!line.reader_down),0),0);
-  if(read!==revised)throw new Error('Coverage conflict: '+read+' vs '+revised);
-  window.HM_POLARITY_REVIEW={version:'0.23.0',revised:read,total,pending:total-read,skipped_missing:missingOriginal};
+  if(read!==revised||read!==192)throw new Error('Coverage conflict: '+read+' vs '+revised);
+  window.HM_POLARITY_REVIEW={version:'0.23.0',gates:16,lines:96,revised:read,total,pending:total-read,skipped_missing:missingOriginal};
   renderContent();
 })();
