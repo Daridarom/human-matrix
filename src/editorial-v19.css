@@ -1,0 +1,17 @@
+
+/* Deep editorial pass 0.19: one practical interpretation first, traditional archive on request */
+.hm19-interpretation{margin:13px 0;padding:14px 16px;border-radius:12px;background:#f4f8f6;border:1px solid #e0ece5}
+.hm19-interpretation p{margin:0 0 10px;font-size:.93rem;line-height:1.7;color:#425b50}
+.hm19-interpretation p:last-child{margin-bottom:0}
+.hm19-interpretation strong{color:#245e49}
+.hm19-source{border:1px solid #e2e8e5;border-radius:12px;margin:12px 0 17px;overflow:hidden;background:#fbfcfb}
+.hm19-source>summary{cursor:pointer;list-style:none;padding:12px 16px;color:#526a61;font-size:.87rem;font-weight:680}
+.hm19-source>summary::-webkit-details-marker{display:none}
+.hm19-source>summary::after{content:'⌄';float:right}
+.hm19-source[open]>summary::after{content:'⌃'}
+.hm19-source>summary:focus-visible{outline:2px solid #498b70;outline-offset:-2px}
+.hm19-source-body{padding:14px 16px 16px;border-top:1px solid #e4ece7;font-size:.89rem;line-height:1.72;color:#53675e}
+.hm19-source-body p{margin:0 0 12px}
+.hm19-caveat{padding:11px 14px;margin:13px 0;color:#617a6c;background:#f2f7f3;border-radius:10px;font-size:.86rem;line-height:1.7}
+.hm19-type-source{margin:16px 0 0}
+@media(max-width:640px){.hm19-interpretation{padding:11px}.hm19-source-body{padding:12px}.hm19-interpretation p{font-size:.89rem}}
