@@ -1,0 +1,17 @@
+/* Human Matrix 0.23 — explain the symbolic polarity before displaying its classic wording */
+.hm23-polarity-explained{margin:10px 0 8px;padding:12px 14px;border-radius:10px;background:rgba(245,250,247,.8);border-left:3px solid #9dbdad}
+.hm23-polarity-explained p{line-height:1.65;font-size:.92rem;color:#3b5c4b;margin:6px 0 0}
+.hm23-status{font-size:.74rem;color:#507662;letter-spacing:.02em;font-weight:750}
+.hm23-original,.hm23-old-lesson{margin:10px 0;border:1px solid #dfe9e2;border-radius:9px;overflow:hidden}
+.hm23-original>summary,.hm23-old-lesson>summary{padding:10px 12px;cursor:pointer;list-style:none;font-size:.85rem;color:#416855;font-weight:650}
+.hm23-original>summary::-webkit-details-marker,.hm23-old-lesson>summary::-webkit-details-marker{display:none}
+.hm23-original>summary::before,.hm23-old-lesson>summary::before{content:'+';font-weight:800;padding-right:8px}
+.hm23-original[open]>summary::before,.hm23-old-lesson[open]>summary::before{content:'−'}
+.hm23-original>p,.hm23-old-lesson>p{padding:0 12px 12px;margin:0;font-size:.86rem;line-height:1.67;color:#637368}
+.hm23-unedited{display:block;color:#707f75;font-size:.76rem;line-height:1.5;margin:8px 0 4px}
+.hm23-missing{font-size:.83rem;padding:10px 12px;background:#faf9f3;border-radius:9px;color:#746e5c;line-height:1.64}
+.hm23-help{border:1px solid #dae9df;border-radius:11px;background:#f6faf7;padding:14px 17px;margin:12px 0 16px;line-height:1.7;color:#416252;font-size:.89rem}
+.hm23-help p{margin:0 0 7px}
+.hm23-help p:last-child{margin-bottom:0}
+.hm23-help strong{color:#2a5c45}
+@media(max-width:650px){.hm23-polarity-explained{padding:10px 12px}.hm23-help{padding:12px 13px}.hm23-polarity-explained p{font-size:.89rem}}
