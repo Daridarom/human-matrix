@@ -1,6 +1,6 @@
 {
   "name": "human-matrix",
-  "version": "0.26.0",
+  "version": "0.26.1",
   "description": "Экспериментальный веб-интерфейс для исследования Human Design, совместимости, транзитов и практики наблюдений.",
   "main": "index.js",
   "dependencies": {
@@ -9,7 +9,7 @@
   },
   "scripts": {
     "build": "esbuild src/hd-core.js --bundle --platform=browser --format=iife --outfile=dist/hd-core.js --minify",
-    "test": "node tests/engine-smoke.mjs && node tests/core-smoke.mjs && node tests/reference-regression.mjs && node tests/ui-regression.mjs && node tests/places-regression.mjs && node --check src/app.js && node --check src/knowledge-v09.js && node --check src/knowledge-v10.js && node --check src/lines-book.js && node --check src/knowledge-v13.js && node --check src/knowledge-v14.js && node --check src/team-v16.js && node --check src/guide-v17.js && node --check src/editorial-v18.js && node --check src/editorial-v19.js && node --check src/gates-v20.js && node --check src/line-texts-01-12-v21.js && node --check src/line-texts-13-24-v21.js && node --check src/line-texts-25-40-v21.js && node --check src/line-texts-41-52-v21.js && node --check src/line-texts-53-64-v21.js && node --check src/lines-v21.js && node --check src/planets-cross-v22.js && node --check src/polarities-01-08-v23.js && node --check src/polarities-09-16-v23.js && node --check src/polarity-review-v23.js && node --check src/polarities-17-24-v23.js && node --check src/polarities-25-32-v24.js && node --check src/polarities-33-40-v25.js && node --check src/polarities-41-44-v251.js && node --check src/polarities-45-48-v252.js && node --check src/polarities-49-56-v26.js && node --check src/polarities-57-64-v26.js"
+    "test": "node tests/engine-smoke.mjs && node tests/core-smoke.mjs && node tests/reference-regression.mjs && node tests/ui-regression.mjs && node tests/places-regression.mjs && node --check src/app.js && node --check src/knowledge-v09.js && node --check src/knowledge-v10.js && node --check src/lines-book.js && node --check src/knowledge-v13.js && node --check src/knowledge-v14.js && node --check src/team-v16.js && node --check src/guide-v17.js && node --check src/editorial-v18.js && node --check src/editorial-v19.js && node --check src/gates-v20.js && node --check src/line-texts-01-12-v21.js && node --check src/line-texts-13-24-v21.js && node --check src/line-texts-25-40-v21.js && node --check src/line-texts-41-52-v21.js && node --check src/line-texts-53-64-v21.js && node --check src/lines-v21.js && node --check src/planets-cross-v22.js && node --check src/polarities-01-08-v23.js && node --check src/polarities-09-16-v23.js && node --check src/polarity-review-v23.js && node --check src/polarities-17-24-v23.js && node --check src/polarities-25-32-v24.js && node --check src/polarities-33-40-v25.js && node --check src/polarities-41-44-v251.js && node --check src/polarities-45-48-v252.js && node --check src/polarities-49-56-v26.js && node --check src/polarities-57-64-v26.js && node --check src/reading-modes-v261.js"
   },
   "repository": {
     "type": "git",
