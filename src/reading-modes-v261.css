@@ -1,0 +1,11 @@
+/* Human Matrix 0.26.1 — reading depth switch */
+.hm-reading-switch{display:flex;align-items:center;flex-wrap:wrap;column-gap:14px;row-gap:6px;padding:12px 14px;margin:0 0 16px;border:1px solid #deded8;border-radius:12px;background:#f8f8f5}
+.hm-reading-label{font-size:13px;font-weight:700}
+.hm-reading-options{display:inline-flex;gap:3px;padding:3px;background:#eaeae5;border-radius:9px}
+.hm-reading-options button{font:inherit;font-size:13px;cursor:pointer;border:0;background:transparent;border-radius:7px;padding:8px 12px;color:#4d504d}
+.hm-reading-options button.selected{background:#fff;color:#202a23;box-shadow:0 1px 4px #00000015;font-weight:700}
+.hm-reading-options button:focus-visible{outline:2px solid #287a5b;outline-offset:2px}
+.hm-reading-description{flex-basis:100%;margin:0;color:#666d67;font-size:12px;line-height:1.5}
+.hm-reading-simple #activations,.hm-reading-simple #gates,.hm-reading-simple .activation-detail-list,.hm-reading-simple .hm23-help,.hm-reading-simple .hm23-original,.hm-reading-simple .hm23-old-lesson,.hm-reading-simple .hm23-missing,.hm-reading-simple .book-source,.hm-reading-simple .interpretive-box,.hm-reading-simple .deep-block,.hm-reading-simple .channel-design{display:none!important}
+.hm-reading-simple .jump-nav a[href="#activations"],.hm-reading-simple .jump-nav a[href="#gates"]{display:none!important}
+@media(max-width:590px){.hm-reading-switch{padding:11px;gap:7px}.hm-reading-label{width:100%}.hm-reading-options{width:100%;display:grid;grid-template-columns:1fr 1fr}.hm-reading-options button{min-height:40px}}
