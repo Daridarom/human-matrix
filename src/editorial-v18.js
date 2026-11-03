@@ -216,7 +216,8 @@
     const n=+match[1],b=window.HumanMatrixBook?.GATE_BOOK?.[n],lines=window.HM_LINES?.[n];
     if(!b||!lines)return html;
     const active=new Set((h.activations||[]).filter(a=>a.gate===n).map(a=>a.line));
-    const items=[1,2,3,4,5,6].map(i=>{
+    const ordered=[1,2,3,4,5,6].sort((a,b)=>Number(active.has(b))-Number(active.has(a))||a-b);
+    const items=ordered.map(i=>{
       const l=lines[i],label=b.lines?.[i-1]||'Линия '+i;
       return '<li'+(active.has(i)?' class="hm18-line-active"':'')+'><strong>'+E(n+'.'+i+' · '+label)+'</strong>'+
         '<p>'+E(LINE_THEMES[i])+'</p>'+(l?.plain?'<p>'+E(l.plain)+'</p>':'')+(l?.example?'<p class="hm21-line-scene"><strong>Пример из жизни.</strong> '+E(l.example)+'</p>':'')+
