@@ -106,6 +106,19 @@ systemsView=function(){
   '<div class="hm17-footer"><strong>Источники для самостоятельного изучения:</strong> <a href="https://jovianarchive.com/pages/beginner" target="_blank" rel="noopener noreferrer">Jovian Archive</a> · <a href="https://daniiltrofimov.com/living" target="_blank" rel="noopener noreferrer">Даниил Трофимов</a> · <a href="https://genekeys.com/books/" target="_blank" rel="noopener noreferrer">Ричард Радд</a> · <a href="https://help.mybodygraph.com/en/articles/16276543-do-i-need-prior-human-design-knowledge-to-benefit-from-these-analyses" target="_blank" rel="noopener noreferrer">myBodyGraph</a>. Это источники традиции и примеры обучения, а не научная валидация модели.</div></section>';
   return html.replace('<div class="read-grid">',learning+'<div class="read-grid">');
 };
+// A beginner may follow a deep link while concise mode is on.
+  // Show the target BEFORE native anchor scrolling; keep the saved user preference.
+  document.addEventListener('click',event=>{
+    const link=event.target.closest('a.hm17-link[href^="#"],a.deep-link[href^="#"]');
+    if(!link)return;
+    const id=link.getAttribute('href').slice(1),target=document.getElementById(id);
+    if(!target||!(target.classList.contains('deep-only')||target.closest('.deep-only')))return;
+    try{localStorage.setItem('human-matrix.depth.v1','full');}catch(e){}
+    const workspace=document.querySelector('.workspace');
+    workspace?.classList.remove('depth-simple');
+    workspace?.classList.add('depth-full');
+    document.querySelectorAll('[data-depth]').forEach(button=>button.classList.toggle('active',button.dataset.depth==='full'));
+  });
 window.HM_GUIDE_VERSION='0.17.0';
 renderContent();
 })();
