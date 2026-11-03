@@ -1,0 +1,6 @@
+/* Human Matrix 0.21 — editorial examples for all 384 lines */
+.hm21-line-scene{font-size:.86rem;color:#38574a;line-height:1.68;background:#eff7f2;border-left:3px solid #8ab6a0;border-radius:0 8px 8px 0;padding:10px 12px;margin:10px 0 2px}
+.hm21-line-scene strong{color:#24634c}
+.hm18-line-guide li.hm18-line-active{background:#eaf6ee;border-color:#68a58b;box-shadow:0 2px 9px rgba(25,80,55,.06)}
+.hm18-line-guide li.hm18-line-active>strong{color:#16583e}
+@media(max-width:640px){.hm21-line-scene{font-size:.84rem;padding:9px 10px}}
