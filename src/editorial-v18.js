@@ -220,7 +220,7 @@
     const items=ordered.map(i=>{
       const l=lines[i],label=b.lines?.[i-1]||'Линия '+i;
       return '<li'+(active.has(i)?' class="hm18-line-active"':'')+'><strong>'+E(n+'.'+i+' · '+label)+'</strong>'+
-        '<p>'+E(LINE_THEMES[i])+'</p>'+(l?.plain?'<p>'+E(l.plain)+'</p>':'')+(l?.example?'<p class="hm21-line-scene"><strong>Пример из жизни.</strong> '+E(l.example)+'</p>':'')+
+        '<p>'+E(LINE_THEMES[i])+'</p>'+(l?.plain?'<p>'+E(l.plain)+'</p>':'')+(l?.example?'<p class="hm21-line-scene"><strong>Пример из жизни.</strong> '+E(l.example)+'</p>':'')+(l?.pre_v21_plain?'<details class="hm21-previous"><summary>Предыдущая трактовка</summary><p>'+E(l.pre_v21_plain)+'</p></details>':'')+
         (active.has(i)?'<span class="hm18-active-label">Активна в этой карте</span>':'')+'</li>';
     }).join('');
     const first='<div class="hm18-line-guide"><h4>Шесть способов прочитать ворота '+n+'</h4>'+
