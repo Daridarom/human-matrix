@@ -22,10 +22,10 @@
   }
   const total=Object.values(lines).reduce((sum,g)=>sum+Object.values(g).reduce((n,line)=>n+Number(!!line.up)+Number(!!line.down),0),0);
   if(total!==760)throw new Error('Original reference set changed: '+total);
-  if(Object.keys(data).length!==40)throw new Error('Expected 32 individually reviewed gates');
+  if(Object.keys(data).length!==44)throw new Error('Expected 44 individually reviewed gates');
   const read=Object.values(lines).reduce((sum,g)=>sum+Object.values(g).reduce((n,line)=>n+Number(!!line.reader_up)+Number(!!line.reader_down),0),0);
-  if(read!==revised||read!==478)throw new Error('Coverage conflict: '+read+' vs '+revised);
-  window.HM_POLARITY_REVIEW={version:'0.25.0',gates:40,lines:240,revised:read,total,pending:total-read,skipped_missing:missingOriginal};
+  if(read!==revised||read!==526)throw new Error('Coverage conflict: '+read+' vs '+revised);
+  window.HM_POLARITY_REVIEW={version:'0.25.1',gates:44,lines:264,revised:read,total,pending:total-read,skipped_missing:missingOriginal};
   const olderDetail=detailHtml;
   detailHtml=function(h,defaultTitle){
     const html=olderDetail(h,defaultTitle);
